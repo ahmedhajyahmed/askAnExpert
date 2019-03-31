@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="expert">
+            <h2><span>Expert</span> {{expert.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Nom</span></dt>
+                <dd>
+                    <span>{{expert.nom}}</span>
+                </dd>
+                <dt><span>Prenom</span></dt>
+                <dd>
+                    <span>{{expert.prenom}}</span>
+                </dd>
+                <dt><span>Date Naissance</span></dt>
+                <dd>
+                    <span>{{expert.date_naissance}}</span>
+                </dd>
+                <dt><span>Adresse</span></dt>
+                <dd>
+                    <span>{{expert.adresse}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{expert.description}}</span>
+                </dd>
+                <dt><span>Domaine</span></dt>
+                <dd>
+                    <span>{{expert.domaine}}</span>
+                </dd>
+                <dt><span>Profession</span></dt>
+                <dd>
+                    <span>{{expert.profession}}</span>
+                </dd>
+                <dt><span>Prix</span></dt>
+                <dd>
+                    <span>{{expert.prix}}</span>
+                </dd>
+                <dt><span>Disponibilite</span></dt>
+                <dd>
+                    <span>{{expert.disponibilite}}</span>
+                </dd>
+                <dt><span>Note</span></dt>
+                <dd>
+                    <span>{{expert.note}}</span>
+                </dd>
+                <dt><span>Photo</span></dt>
+                <dd>
+                    <div *ngIf="expert.photo">
+                        <a (click)="openFile(expert.photoContentType, expert.photo)">
+                            <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="max-width: 100%;" alt="expert image"/>
+                        </a>
+                        {{expert.photoContentType}}, {{byteSize(expert.photo)}}
+                    </div>
+                </dd>
+                <dt><span>Num Rib</span></dt>
+                <dd>
+                    <span>{{expert.num_rib}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/expert', expert.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-expert-heading">Create or edit a Expert</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!expert.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="expert.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nom">Nom</label>
+                    <input type="text" class="form-control" name="nom" id="field_nom"
+                        [(ngModel)]="expert.nom" required/>
+                    <div [hidden]="!(editForm.controls.nom?.dirty && editForm.controls.nom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nom?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_prenom">Prenom</label>
+                    <input type="text" class="form-control" name="prenom" id="field_prenom"
+                        [(ngModel)]="expert.prenom" required/>
+                    <div [hidden]="!(editForm.controls.prenom?.dirty && editForm.controls.prenom?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.prenom?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_date_naissance">Date Naissance</label>
+                    <div class="input-group">
+                        <input id="field_date_naissance" type="text" class="form-control" name="date_naissance" ngbDatepicker  #date_naissanceDp="ngbDatepicker" [(ngModel)]="expert.date_naissance"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="date_naissanceDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.date_naissance?.dirty && editForm.controls.date_naissance?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.date_naissance?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_adresse">Adresse</label>
+                    <input type="text" class="form-control" name="adresse" id="field_adresse"
+                        [(ngModel)]="expert.adresse" required/>
+                    <div [hidden]="!(editForm.controls.adresse?.dirty && editForm.controls.adresse?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.adresse?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                        [(ngModel)]="expert.description" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_domaine">Domaine</label>
+                    <input type="text" class="form-control" name="domaine" id="field_domaine"
+                        [(ngModel)]="expert.domaine" required/>
+                    <div [hidden]="!(editForm.controls.domaine?.dirty && editForm.controls.domaine?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.domaine?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_profession">Profession</label>
+                    <input type="text" class="form-control" name="profession" id="field_profession"
+                        [(ngModel)]="expert.profession" required/>
+                    <div [hidden]="!(editForm.controls.profession?.dirty && editForm.controls.profession?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.profession?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_prix">Prix</label>
+                    <input type="number" class="form-control" name="prix" id="field_prix"
+                        [(ngModel)]="expert.prix" required/>
+                    <div [hidden]="!(editForm.controls.prix?.dirty && editForm.controls.prix?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.prix?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.prix?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_disponibilite">Disponibilite</label>
+                    <div class="d-flex">
+                        <input id="field_disponibilite" type="datetime-local" class="form-control" name="disponibilite" [(ngModel)]="disponibilite" placeholder="YYYY-MM-DD HH:mm"
+                        required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.disponibilite?.dirty && editForm.controls.disponibilite?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.disponibilite?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.disponibilite?.errors?.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_note">Note</label>
+                    <input type="number" class="form-control" name="note" id="field_note"
+                        [(ngModel)]="expert.note" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_photo">Photo</label>
+                    <div>
+                        <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="max-height: 100px;" *ngIf="expert.photo" alt="expert image"/>
+                        <div *ngIf="expert.photo" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{expert.photoContentType}}, {{byteSize(expert.photo)}}</span>
+                            <button type="button" (click)="clearInputImage('photo', 'photoContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_photo" (change)="setFileData($event, expert, 'photo', true)" accept="image/*"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="photo" id="field_photo"
+                        [(ngModel)]="expert.photo" />
+                    <input type="hidden" class="form-control" name="photoContentType" id="field_photoContentType"
+                        [(ngModel)]="expert.photoContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_num_rib">Num Rib</label>
+                    <input type="number" class="form-control" name="num_rib" id="field_num_rib"
+                        [(ngModel)]="expert.num_rib" required/>
+                    <div [hidden]="!(editForm.controls.num_rib?.dirty && editForm.controls.num_rib?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.num_rib?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.num_rib?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
