@@ -1,0 +1,35 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.pu.askanexpert"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "monolith",
+        "baseName": "askAnExpert",
+        "packageName": "com.pu.askanexpert",
+        "packageFolder": "com/pu/askanexpert",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "ehcache",
+        "enableHibernateCache": true,
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "mysql",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "NTI5YWRhZDE1MjUyN2NjZjgxNDI2MGFjYTZlODM2YTE4NDNkZTAwNjc0MDMxOGViYWMzOTRmNWI2MTA4ZGRlNWQxNmIwYTI1ZWUyNTE4OTMzNGE1ZDQ4NGRiZGFmYTAwYzlhOWRjZGYwZWVjODg0ZWU2Yzk2ODg3MDgyOGI5NDE=",
+        "clientFramework": "angularX",
+        "useSass": false,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": false
+    }
+}
