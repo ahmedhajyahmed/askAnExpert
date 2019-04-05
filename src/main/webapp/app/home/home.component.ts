@@ -3,6 +3,8 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginModalService, AccountService, Account } from 'app/core';
+import { Expert } from 'app/shared/model/expert.model';
+import { ExpertService } from 'app/entities/expert';
 
 @Component({
     selector: 'jhi-home',
@@ -12,18 +14,33 @@ import { LoginModalService, AccountService, Account } from 'app/core';
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
+    experts: Expert[] = [];
 
     constructor(
         private accountService: AccountService,
         private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private expertService: ExpertService
     ) {}
+
+    loadAll() {
+        this.expertService.query().subscribe(
+            res => {
+                console.log(res.body);
+                this.experts = res.body;
+            },
+            res => {
+                console.log(res.toString());
+            }
+        );
+    }
 
     ngOnInit() {
         this.accountService.identity().then((account: Account) => {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+        this.loadAll();
     }
 
     registerAuthenticationSuccess() {
