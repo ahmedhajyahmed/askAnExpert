@@ -89,14 +89,14 @@ public class ExpertQueryService extends QueryService<Expert> {
             if (criteria.getPrenom() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPrenom(), Expert_.prenom));
             }
-            if (criteria.getDate_naissance() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDate_naissance(), Expert_.date_naissance));
+            if (criteria.getDateNaissance() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getDateNaissance(), Expert_.dateNaissance));
             }
             if (criteria.getAdresse() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getAdresse(), Expert_.adresse));
             }
             if (criteria.getDomaine() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getDomaine(), Expert_.domaine));
+                specification = specification.and(buildSpecification(criteria.getDomaine(), Expert_.domaine));
             }
             if (criteria.getProfession() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getProfession(), Expert_.profession));
@@ -104,14 +104,23 @@ public class ExpertQueryService extends QueryService<Expert> {
             if (criteria.getPrix() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getPrix(), Expert_.prix));
             }
-            if (criteria.getDisponibilite() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getDisponibilite(), Expert_.disponibilite));
-            }
             if (criteria.getNote() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getNote(), Expert_.note));
             }
-            if (criteria.getNum_rib() != null) {
-                specification = specification.and(buildRangeSpecification(criteria.getNum_rib(), Expert_.num_rib));
+            if (criteria.getNumRib() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getNumRib(), Expert_.numRib));
+            }
+            if (criteria.getDisponibiliteId() != null) {
+                specification = specification.and(buildSpecification(criteria.getDisponibiliteId(),
+                    root -> root.join(Expert_.disponibilites, JoinType.LEFT).get(Disponibilite_.id)));
+            }
+            if (criteria.getHistoriqueAppelId() != null) {
+                specification = specification.and(buildSpecification(criteria.getHistoriqueAppelId(),
+                    root -> root.join(Expert_.historiqueAppels, JoinType.LEFT).get(HistoriqueAppel_.id)));
+            }
+            if (criteria.getHistoriqueChatId() != null) {
+                specification = specification.and(buildSpecification(criteria.getHistoriqueChatId(),
+                    root -> root.join(Expert_.historiqueChats, JoinType.LEFT).get(HistoriqueChat_.id)));
             }
         }
         return specification;

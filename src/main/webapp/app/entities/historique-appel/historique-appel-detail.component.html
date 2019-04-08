@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="historiqueAppel">
+            <h2><span>Historique Appel</span> {{historiqueAppel.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Date Appel</span></dt>
+                <dd>
+                    <span>{{historiqueAppel.dateAppel}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{historiqueAppel.description}}</span>
+                </dd>
+                <dt><span>Nom Client</span></dt>
+                <dd>
+                    <span>{{historiqueAppel.nomClient}}</span>
+                </dd>
+                <dt><span>Expert</span></dt>
+                <dd>
+                    <div *ngIf="historiqueAppel.expert">
+                        <a [routerLink]="['/expert', historiqueAppel.expert?.id, 'view']">{{historiqueAppel.expert?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/historique-appel', historiqueAppel.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

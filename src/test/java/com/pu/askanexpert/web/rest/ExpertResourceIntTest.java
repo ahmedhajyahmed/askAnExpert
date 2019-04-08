@@ -3,6 +3,9 @@ package com.pu.askanexpert.web.rest;
 import com.pu.askanexpert.AskAnExpertApp;
 
 import com.pu.askanexpert.domain.Expert;
+import com.pu.askanexpert.domain.Disponibilite;
+import com.pu.askanexpert.domain.HistoriqueAppel;
+import com.pu.askanexpert.domain.HistoriqueChat;
 import com.pu.askanexpert.repository.ExpertRepository;
 import com.pu.askanexpert.service.ExpertService;
 import com.pu.askanexpert.web.rest.errors.ExceptionTranslator;
@@ -27,9 +30,7 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.time.Instant;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -39,6 +40,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.pu.askanexpert.domain.enumeration.Domaine;
 /**
  * Test class for the ExpertResource REST controller.
  *
@@ -63,17 +65,14 @@ public class ExpertResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DOMAINE = "AAAAAAAAAA";
-    private static final String UPDATED_DOMAINE = "BBBBBBBBBB";
+    private static final Domaine DEFAULT_DOMAINE = Domaine.Informatique;
+    private static final Domaine UPDATED_DOMAINE = Domaine.Sante;
 
     private static final String DEFAULT_PROFESSION = "AAAAAAAAAA";
     private static final String UPDATED_PROFESSION = "BBBBBBBBBB";
 
     private static final Long DEFAULT_PRIX = 1L;
     private static final Long UPDATED_PRIX = 2L;
-
-    private static final Instant DEFAULT_DISPONIBILITE = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_DISPONIBILITE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Integer DEFAULT_NOTE = 1;
     private static final Integer UPDATED_NOTE = 2;
@@ -136,17 +135,16 @@ public class ExpertResourceIntTest {
         Expert expert = new Expert()
             .nom(DEFAULT_NOM)
             .prenom(DEFAULT_PRENOM)
-            .date_naissance(DEFAULT_DATE_NAISSANCE)
+            .dateNaissance(DEFAULT_DATE_NAISSANCE)
             .adresse(DEFAULT_ADRESSE)
             .description(DEFAULT_DESCRIPTION)
             .domaine(DEFAULT_DOMAINE)
             .profession(DEFAULT_PROFESSION)
             .prix(DEFAULT_PRIX)
-            .disponibilite(DEFAULT_DISPONIBILITE)
             .note(DEFAULT_NOTE)
             .photo(DEFAULT_PHOTO)
             .photoContentType(DEFAULT_PHOTO_CONTENT_TYPE)
-            .num_rib(DEFAULT_NUM_RIB);
+            .numRib(DEFAULT_NUM_RIB);
         return expert;
     }
 
@@ -172,17 +170,16 @@ public class ExpertResourceIntTest {
         Expert testExpert = expertList.get(expertList.size() - 1);
         assertThat(testExpert.getNom()).isEqualTo(DEFAULT_NOM);
         assertThat(testExpert.getPrenom()).isEqualTo(DEFAULT_PRENOM);
-        assertThat(testExpert.getDate_naissance()).isEqualTo(DEFAULT_DATE_NAISSANCE);
+        assertThat(testExpert.getDateNaissance()).isEqualTo(DEFAULT_DATE_NAISSANCE);
         assertThat(testExpert.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
         assertThat(testExpert.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testExpert.getDomaine()).isEqualTo(DEFAULT_DOMAINE);
         assertThat(testExpert.getProfession()).isEqualTo(DEFAULT_PROFESSION);
         assertThat(testExpert.getPrix()).isEqualTo(DEFAULT_PRIX);
-        assertThat(testExpert.getDisponibilite()).isEqualTo(DEFAULT_DISPONIBILITE);
         assertThat(testExpert.getNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testExpert.getPhoto()).isEqualTo(DEFAULT_PHOTO);
         assertThat(testExpert.getPhotoContentType()).isEqualTo(DEFAULT_PHOTO_CONTENT_TYPE);
-        assertThat(testExpert.getNum_rib()).isEqualTo(DEFAULT_NUM_RIB);
+        assertThat(testExpert.getNumRib()).isEqualTo(DEFAULT_NUM_RIB);
     }
 
     @Test
@@ -228,24 +225,6 @@ public class ExpertResourceIntTest {
         int databaseSizeBeforeTest = expertRepository.findAll().size();
         // set the field null
         expert.setPrenom(null);
-
-        // Create the Expert, which fails.
-
-        restExpertMockMvc.perform(post("/api/experts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(expert)))
-            .andExpect(status().isBadRequest());
-
-        List<Expert> expertList = expertRepository.findAll();
-        assertThat(expertList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkDate_naissanceIsRequired() throws Exception {
-        int databaseSizeBeforeTest = expertRepository.findAll().size();
-        // set the field null
-        expert.setDate_naissance(null);
 
         // Create the Expert, which fails.
 
@@ -332,28 +311,10 @@ public class ExpertResourceIntTest {
 
     @Test
     @Transactional
-    public void checkDisponibiliteIsRequired() throws Exception {
+    public void checkNumRibIsRequired() throws Exception {
         int databaseSizeBeforeTest = expertRepository.findAll().size();
         // set the field null
-        expert.setDisponibilite(null);
-
-        // Create the Expert, which fails.
-
-        restExpertMockMvc.perform(post("/api/experts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(expert)))
-            .andExpect(status().isBadRequest());
-
-        List<Expert> expertList = expertRepository.findAll();
-        assertThat(expertList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkNum_ribIsRequired() throws Exception {
-        int databaseSizeBeforeTest = expertRepository.findAll().size();
-        // set the field null
-        expert.setNum_rib(null);
+        expert.setNumRib(null);
 
         // Create the Expert, which fails.
 
@@ -379,17 +340,16 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(expert.getId().intValue())))
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM.toString())))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM.toString())))
-            .andExpect(jsonPath("$.[*].date_naissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
+            .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].domaine").value(hasItem(DEFAULT_DOMAINE.toString())))
             .andExpect(jsonPath("$.[*].profession").value(hasItem(DEFAULT_PROFESSION.toString())))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
-            .andExpect(jsonPath("$.[*].disponibilite").value(hasItem(DEFAULT_DISPONIBILITE.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
-            .andExpect(jsonPath("$.[*].num_rib").value(hasItem(DEFAULT_NUM_RIB.intValue())));
+            .andExpect(jsonPath("$.[*].numRib").value(hasItem(DEFAULT_NUM_RIB.intValue())));
     }
     
     @Test
@@ -405,17 +365,16 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.id").value(expert.getId().intValue()))
             .andExpect(jsonPath("$.nom").value(DEFAULT_NOM.toString()))
             .andExpect(jsonPath("$.prenom").value(DEFAULT_PRENOM.toString()))
-            .andExpect(jsonPath("$.date_naissance").value(DEFAULT_DATE_NAISSANCE.toString()))
+            .andExpect(jsonPath("$.dateNaissance").value(DEFAULT_DATE_NAISSANCE.toString()))
             .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.domaine").value(DEFAULT_DOMAINE.toString()))
             .andExpect(jsonPath("$.profession").value(DEFAULT_PROFESSION.toString()))
             .andExpect(jsonPath("$.prix").value(DEFAULT_PRIX.intValue()))
-            .andExpect(jsonPath("$.disponibilite").value(DEFAULT_DISPONIBILITE.toString()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
             .andExpect(jsonPath("$.photo").value(Base64Utils.encodeToString(DEFAULT_PHOTO)))
-            .andExpect(jsonPath("$.num_rib").value(DEFAULT_NUM_RIB.intValue()));
+            .andExpect(jsonPath("$.numRib").value(DEFAULT_NUM_RIB.intValue()));
     }
 
     @Test
@@ -498,67 +457,67 @@ public class ExpertResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllExpertsByDate_naissanceIsEqualToSomething() throws Exception {
+    public void getAllExpertsByDateNaissanceIsEqualToSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where date_naissance equals to DEFAULT_DATE_NAISSANCE
-        defaultExpertShouldBeFound("date_naissance.equals=" + DEFAULT_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance equals to DEFAULT_DATE_NAISSANCE
+        defaultExpertShouldBeFound("dateNaissance.equals=" + DEFAULT_DATE_NAISSANCE);
 
-        // Get all the expertList where date_naissance equals to UPDATED_DATE_NAISSANCE
-        defaultExpertShouldNotBeFound("date_naissance.equals=" + UPDATED_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance equals to UPDATED_DATE_NAISSANCE
+        defaultExpertShouldNotBeFound("dateNaissance.equals=" + UPDATED_DATE_NAISSANCE);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByDate_naissanceIsInShouldWork() throws Exception {
+    public void getAllExpertsByDateNaissanceIsInShouldWork() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where date_naissance in DEFAULT_DATE_NAISSANCE or UPDATED_DATE_NAISSANCE
-        defaultExpertShouldBeFound("date_naissance.in=" + DEFAULT_DATE_NAISSANCE + "," + UPDATED_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance in DEFAULT_DATE_NAISSANCE or UPDATED_DATE_NAISSANCE
+        defaultExpertShouldBeFound("dateNaissance.in=" + DEFAULT_DATE_NAISSANCE + "," + UPDATED_DATE_NAISSANCE);
 
-        // Get all the expertList where date_naissance equals to UPDATED_DATE_NAISSANCE
-        defaultExpertShouldNotBeFound("date_naissance.in=" + UPDATED_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance equals to UPDATED_DATE_NAISSANCE
+        defaultExpertShouldNotBeFound("dateNaissance.in=" + UPDATED_DATE_NAISSANCE);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByDate_naissanceIsNullOrNotNull() throws Exception {
+    public void getAllExpertsByDateNaissanceIsNullOrNotNull() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where date_naissance is not null
-        defaultExpertShouldBeFound("date_naissance.specified=true");
+        // Get all the expertList where dateNaissance is not null
+        defaultExpertShouldBeFound("dateNaissance.specified=true");
 
-        // Get all the expertList where date_naissance is null
-        defaultExpertShouldNotBeFound("date_naissance.specified=false");
+        // Get all the expertList where dateNaissance is null
+        defaultExpertShouldNotBeFound("dateNaissance.specified=false");
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByDate_naissanceIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllExpertsByDateNaissanceIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where date_naissance greater than or equals to DEFAULT_DATE_NAISSANCE
-        defaultExpertShouldBeFound("date_naissance.greaterOrEqualThan=" + DEFAULT_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance greater than or equals to DEFAULT_DATE_NAISSANCE
+        defaultExpertShouldBeFound("dateNaissance.greaterOrEqualThan=" + DEFAULT_DATE_NAISSANCE);
 
-        // Get all the expertList where date_naissance greater than or equals to UPDATED_DATE_NAISSANCE
-        defaultExpertShouldNotBeFound("date_naissance.greaterOrEqualThan=" + UPDATED_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance greater than or equals to UPDATED_DATE_NAISSANCE
+        defaultExpertShouldNotBeFound("dateNaissance.greaterOrEqualThan=" + UPDATED_DATE_NAISSANCE);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByDate_naissanceIsLessThanSomething() throws Exception {
+    public void getAllExpertsByDateNaissanceIsLessThanSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where date_naissance less than or equals to DEFAULT_DATE_NAISSANCE
-        defaultExpertShouldNotBeFound("date_naissance.lessThan=" + DEFAULT_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance less than or equals to DEFAULT_DATE_NAISSANCE
+        defaultExpertShouldNotBeFound("dateNaissance.lessThan=" + DEFAULT_DATE_NAISSANCE);
 
-        // Get all the expertList where date_naissance less than or equals to UPDATED_DATE_NAISSANCE
-        defaultExpertShouldBeFound("date_naissance.lessThan=" + UPDATED_DATE_NAISSANCE);
+        // Get all the expertList where dateNaissance less than or equals to UPDATED_DATE_NAISSANCE
+        defaultExpertShouldBeFound("dateNaissance.lessThan=" + UPDATED_DATE_NAISSANCE);
     }
 
 
@@ -747,45 +706,6 @@ public class ExpertResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllExpertsByDisponibiliteIsEqualToSomething() throws Exception {
-        // Initialize the database
-        expertRepository.saveAndFlush(expert);
-
-        // Get all the expertList where disponibilite equals to DEFAULT_DISPONIBILITE
-        defaultExpertShouldBeFound("disponibilite.equals=" + DEFAULT_DISPONIBILITE);
-
-        // Get all the expertList where disponibilite equals to UPDATED_DISPONIBILITE
-        defaultExpertShouldNotBeFound("disponibilite.equals=" + UPDATED_DISPONIBILITE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllExpertsByDisponibiliteIsInShouldWork() throws Exception {
-        // Initialize the database
-        expertRepository.saveAndFlush(expert);
-
-        // Get all the expertList where disponibilite in DEFAULT_DISPONIBILITE or UPDATED_DISPONIBILITE
-        defaultExpertShouldBeFound("disponibilite.in=" + DEFAULT_DISPONIBILITE + "," + UPDATED_DISPONIBILITE);
-
-        // Get all the expertList where disponibilite equals to UPDATED_DISPONIBILITE
-        defaultExpertShouldNotBeFound("disponibilite.in=" + UPDATED_DISPONIBILITE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllExpertsByDisponibiliteIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        expertRepository.saveAndFlush(expert);
-
-        // Get all the expertList where disponibilite is not null
-        defaultExpertShouldBeFound("disponibilite.specified=true");
-
-        // Get all the expertList where disponibilite is null
-        defaultExpertShouldNotBeFound("disponibilite.specified=false");
-    }
-
-    @Test
-    @Transactional
     public void getAllExpertsByNoteIsEqualToSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
@@ -852,67 +772,124 @@ public class ExpertResourceIntTest {
 
     @Test
     @Transactional
-    public void getAllExpertsByNum_ribIsEqualToSomething() throws Exception {
+    public void getAllExpertsByNumRibIsEqualToSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where num_rib equals to DEFAULT_NUM_RIB
-        defaultExpertShouldBeFound("num_rib.equals=" + DEFAULT_NUM_RIB);
+        // Get all the expertList where numRib equals to DEFAULT_NUM_RIB
+        defaultExpertShouldBeFound("numRib.equals=" + DEFAULT_NUM_RIB);
 
-        // Get all the expertList where num_rib equals to UPDATED_NUM_RIB
-        defaultExpertShouldNotBeFound("num_rib.equals=" + UPDATED_NUM_RIB);
+        // Get all the expertList where numRib equals to UPDATED_NUM_RIB
+        defaultExpertShouldNotBeFound("numRib.equals=" + UPDATED_NUM_RIB);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByNum_ribIsInShouldWork() throws Exception {
+    public void getAllExpertsByNumRibIsInShouldWork() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where num_rib in DEFAULT_NUM_RIB or UPDATED_NUM_RIB
-        defaultExpertShouldBeFound("num_rib.in=" + DEFAULT_NUM_RIB + "," + UPDATED_NUM_RIB);
+        // Get all the expertList where numRib in DEFAULT_NUM_RIB or UPDATED_NUM_RIB
+        defaultExpertShouldBeFound("numRib.in=" + DEFAULT_NUM_RIB + "," + UPDATED_NUM_RIB);
 
-        // Get all the expertList where num_rib equals to UPDATED_NUM_RIB
-        defaultExpertShouldNotBeFound("num_rib.in=" + UPDATED_NUM_RIB);
+        // Get all the expertList where numRib equals to UPDATED_NUM_RIB
+        defaultExpertShouldNotBeFound("numRib.in=" + UPDATED_NUM_RIB);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByNum_ribIsNullOrNotNull() throws Exception {
+    public void getAllExpertsByNumRibIsNullOrNotNull() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where num_rib is not null
-        defaultExpertShouldBeFound("num_rib.specified=true");
+        // Get all the expertList where numRib is not null
+        defaultExpertShouldBeFound("numRib.specified=true");
 
-        // Get all the expertList where num_rib is null
-        defaultExpertShouldNotBeFound("num_rib.specified=false");
+        // Get all the expertList where numRib is null
+        defaultExpertShouldNotBeFound("numRib.specified=false");
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByNum_ribIsGreaterThanOrEqualToSomething() throws Exception {
+    public void getAllExpertsByNumRibIsGreaterThanOrEqualToSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where num_rib greater than or equals to DEFAULT_NUM_RIB
-        defaultExpertShouldBeFound("num_rib.greaterOrEqualThan=" + DEFAULT_NUM_RIB);
+        // Get all the expertList where numRib greater than or equals to DEFAULT_NUM_RIB
+        defaultExpertShouldBeFound("numRib.greaterOrEqualThan=" + DEFAULT_NUM_RIB);
 
-        // Get all the expertList where num_rib greater than or equals to UPDATED_NUM_RIB
-        defaultExpertShouldNotBeFound("num_rib.greaterOrEqualThan=" + UPDATED_NUM_RIB);
+        // Get all the expertList where numRib greater than or equals to UPDATED_NUM_RIB
+        defaultExpertShouldNotBeFound("numRib.greaterOrEqualThan=" + UPDATED_NUM_RIB);
     }
 
     @Test
     @Transactional
-    public void getAllExpertsByNum_ribIsLessThanSomething() throws Exception {
+    public void getAllExpertsByNumRibIsLessThanSomething() throws Exception {
         // Initialize the database
         expertRepository.saveAndFlush(expert);
 
-        // Get all the expertList where num_rib less than or equals to DEFAULT_NUM_RIB
-        defaultExpertShouldNotBeFound("num_rib.lessThan=" + DEFAULT_NUM_RIB);
+        // Get all the expertList where numRib less than or equals to DEFAULT_NUM_RIB
+        defaultExpertShouldNotBeFound("numRib.lessThan=" + DEFAULT_NUM_RIB);
 
-        // Get all the expertList where num_rib less than or equals to UPDATED_NUM_RIB
-        defaultExpertShouldBeFound("num_rib.lessThan=" + UPDATED_NUM_RIB);
+        // Get all the expertList where numRib less than or equals to UPDATED_NUM_RIB
+        defaultExpertShouldBeFound("numRib.lessThan=" + UPDATED_NUM_RIB);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllExpertsByDisponibiliteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        Disponibilite disponibilite = DisponibiliteResourceIntTest.createEntity(em);
+        em.persist(disponibilite);
+        em.flush();
+        expert.addDisponibilite(disponibilite);
+        expertRepository.saveAndFlush(expert);
+        Long disponibiliteId = disponibilite.getId();
+
+        // Get all the expertList where disponibilite equals to disponibiliteId
+        defaultExpertShouldBeFound("disponibiliteId.equals=" + disponibiliteId);
+
+        // Get all the expertList where disponibilite equals to disponibiliteId + 1
+        defaultExpertShouldNotBeFound("disponibiliteId.equals=" + (disponibiliteId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllExpertsByHistoriqueAppelIsEqualToSomething() throws Exception {
+        // Initialize the database
+        HistoriqueAppel historiqueAppel = HistoriqueAppelResourceIntTest.createEntity(em);
+        em.persist(historiqueAppel);
+        em.flush();
+        expert.addHistoriqueAppel(historiqueAppel);
+        expertRepository.saveAndFlush(expert);
+        Long historiqueAppelId = historiqueAppel.getId();
+
+        // Get all the expertList where historiqueAppel equals to historiqueAppelId
+        defaultExpertShouldBeFound("historiqueAppelId.equals=" + historiqueAppelId);
+
+        // Get all the expertList where historiqueAppel equals to historiqueAppelId + 1
+        defaultExpertShouldNotBeFound("historiqueAppelId.equals=" + (historiqueAppelId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllExpertsByHistoriqueChatIsEqualToSomething() throws Exception {
+        // Initialize the database
+        HistoriqueChat historiqueChat = HistoriqueChatResourceIntTest.createEntity(em);
+        em.persist(historiqueChat);
+        em.flush();
+        expert.addHistoriqueChat(historiqueChat);
+        expertRepository.saveAndFlush(expert);
+        Long historiqueChatId = historiqueChat.getId();
+
+        // Get all the expertList where historiqueChat equals to historiqueChatId
+        defaultExpertShouldBeFound("historiqueChatId.equals=" + historiqueChatId);
+
+        // Get all the expertList where historiqueChat equals to historiqueChatId + 1
+        defaultExpertShouldNotBeFound("historiqueChatId.equals=" + (historiqueChatId + 1));
     }
 
     /**
@@ -925,17 +902,16 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(expert.getId().intValue())))
             .andExpect(jsonPath("$.[*].nom").value(hasItem(DEFAULT_NOM)))
             .andExpect(jsonPath("$.[*].prenom").value(hasItem(DEFAULT_PRENOM)))
-            .andExpect(jsonPath("$.[*].date_naissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
+            .andExpect(jsonPath("$.[*].dateNaissance").value(hasItem(DEFAULT_DATE_NAISSANCE.toString())))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].domaine").value(hasItem(DEFAULT_DOMAINE)))
+            .andExpect(jsonPath("$.[*].domaine").value(hasItem(DEFAULT_DOMAINE.toString())))
             .andExpect(jsonPath("$.[*].profession").value(hasItem(DEFAULT_PROFESSION)))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
-            .andExpect(jsonPath("$.[*].disponibilite").value(hasItem(DEFAULT_DISPONIBILITE.toString())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].photo").value(hasItem(Base64Utils.encodeToString(DEFAULT_PHOTO))))
-            .andExpect(jsonPath("$.[*].num_rib").value(hasItem(DEFAULT_NUM_RIB.intValue())));
+            .andExpect(jsonPath("$.[*].numRib").value(hasItem(DEFAULT_NUM_RIB.intValue())));
 
         // Check, that the count call also returns 1
         restExpertMockMvc.perform(get("/api/experts/count?sort=id,desc&" + filter))
@@ -985,17 +961,16 @@ public class ExpertResourceIntTest {
         updatedExpert
             .nom(UPDATED_NOM)
             .prenom(UPDATED_PRENOM)
-            .date_naissance(UPDATED_DATE_NAISSANCE)
+            .dateNaissance(UPDATED_DATE_NAISSANCE)
             .adresse(UPDATED_ADRESSE)
             .description(UPDATED_DESCRIPTION)
             .domaine(UPDATED_DOMAINE)
             .profession(UPDATED_PROFESSION)
             .prix(UPDATED_PRIX)
-            .disponibilite(UPDATED_DISPONIBILITE)
             .note(UPDATED_NOTE)
             .photo(UPDATED_PHOTO)
             .photoContentType(UPDATED_PHOTO_CONTENT_TYPE)
-            .num_rib(UPDATED_NUM_RIB);
+            .numRib(UPDATED_NUM_RIB);
 
         restExpertMockMvc.perform(put("/api/experts")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -1008,17 +983,16 @@ public class ExpertResourceIntTest {
         Expert testExpert = expertList.get(expertList.size() - 1);
         assertThat(testExpert.getNom()).isEqualTo(UPDATED_NOM);
         assertThat(testExpert.getPrenom()).isEqualTo(UPDATED_PRENOM);
-        assertThat(testExpert.getDate_naissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
+        assertThat(testExpert.getDateNaissance()).isEqualTo(UPDATED_DATE_NAISSANCE);
         assertThat(testExpert.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testExpert.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testExpert.getDomaine()).isEqualTo(UPDATED_DOMAINE);
         assertThat(testExpert.getProfession()).isEqualTo(UPDATED_PROFESSION);
         assertThat(testExpert.getPrix()).isEqualTo(UPDATED_PRIX);
-        assertThat(testExpert.getDisponibilite()).isEqualTo(UPDATED_DISPONIBILITE);
         assertThat(testExpert.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testExpert.getPhoto()).isEqualTo(UPDATED_PHOTO);
         assertThat(testExpert.getPhotoContentType()).isEqualTo(UPDATED_PHOTO_CONTENT_TYPE);
-        assertThat(testExpert.getNum_rib()).isEqualTo(UPDATED_NUM_RIB);
+        assertThat(testExpert.getNumRib()).isEqualTo(UPDATED_NUM_RIB);
     }
 
     @Test

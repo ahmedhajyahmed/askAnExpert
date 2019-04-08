@@ -51,17 +51,14 @@ export class ExpertService {
 
     protected convertDateFromClient(expert: IExpert): IExpert {
         const copy: IExpert = Object.assign({}, expert, {
-            date_naissance:
-                expert.date_naissance != null && expert.date_naissance.isValid() ? expert.date_naissance.format(DATE_FORMAT) : null,
-            disponibilite: expert.disponibilite != null && expert.disponibilite.isValid() ? expert.disponibilite.toJSON() : null
+            dateNaissance: expert.dateNaissance != null && expert.dateNaissance.isValid() ? expert.dateNaissance.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
     protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
         if (res.body) {
-            res.body.date_naissance = res.body.date_naissance != null ? moment(res.body.date_naissance) : null;
-            res.body.disponibilite = res.body.disponibilite != null ? moment(res.body.disponibilite) : null;
+            res.body.dateNaissance = res.body.dateNaissance != null ? moment(res.body.dateNaissance) : null;
         }
         return res;
     }
@@ -69,8 +66,7 @@ export class ExpertService {
     protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         if (res.body) {
             res.body.forEach((expert: IExpert) => {
-                expert.date_naissance = expert.date_naissance != null ? moment(expert.date_naissance) : null;
-                expert.disponibilite = expert.disponibilite != null ? moment(expert.disponibilite) : null;
+                expert.dateNaissance = expert.dateNaissance != null ? moment(expert.dateNaissance) : null;
             });
         }
         return res;

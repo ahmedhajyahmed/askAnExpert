@@ -4,7 +4,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiDataUtils } from 'ng-jhipster';
 import { IExpert } from 'app/shared/model/expert.model';
 import { ExpertService } from './expert.service';
@@ -16,8 +15,7 @@ import { ExpertService } from './expert.service';
 export class ExpertUpdateComponent implements OnInit {
     expert: IExpert;
     isSaving: boolean;
-    date_naissanceDp: any;
-    disponibilite: string;
+    dateNaissanceDp: any;
 
     constructor(
         protected dataUtils: JhiDataUtils,
@@ -30,7 +28,6 @@ export class ExpertUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ expert }) => {
             this.expert = expert;
-            this.disponibilite = this.expert.disponibilite != null ? this.expert.disponibilite.format(DATE_TIME_FORMAT) : null;
         });
     }
 
@@ -56,7 +53,6 @@ export class ExpertUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.expert.disponibilite = this.disponibilite != null ? moment(this.disponibilite, DATE_TIME_FORMAT) : null;
         if (this.expert.id !== undefined) {
             this.subscribeToSaveResponse(this.expertService.update(this.expert));
         } else {

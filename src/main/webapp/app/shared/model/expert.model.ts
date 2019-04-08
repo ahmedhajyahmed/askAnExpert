@@ -1,20 +1,34 @@
 import { Moment } from 'moment';
+import { IDisponibilite } from 'app/shared/model/disponibilite.model';
+import { IHistoriqueAppel } from 'app/shared/model/historique-appel.model';
+import { IHistoriqueChat } from 'app/shared/model/historique-chat.model';
+
+export const enum Domaine {
+    Informatique = 'Informatique',
+    Sante = 'Sante',
+    Marketing = 'Marketing',
+    Communication = 'Communication',
+    Juridique = 'Juridique',
+    Finance = 'Finance'
+}
 
 export interface IExpert {
     id?: number;
     nom?: string;
     prenom?: string;
-    date_naissance?: Moment;
+    dateNaissance?: Moment;
     adresse?: string;
     description?: any;
-    domaine?: string;
+    domaine?: Domaine;
     profession?: string;
     prix?: number;
-    disponibilite?: Moment;
     note?: number;
     photoContentType?: string;
     photo?: any;
-    num_rib?: number;
+    numRib?: number;
+    disponibilites?: IDisponibilite[];
+    historiqueAppels?: IHistoriqueAppel[];
+    historiqueChats?: IHistoriqueChat[];
 }
 
 export class Expert implements IExpert {
@@ -22,16 +36,18 @@ export class Expert implements IExpert {
         public id?: number,
         public nom?: string,
         public prenom?: string,
-        public date_naissance?: Moment,
+        public dateNaissance?: Moment,
         public adresse?: string,
         public description?: any,
-        public domaine?: string,
+        public domaine?: Domaine,
         public profession?: string,
         public prix?: number,
-        public disponibilite?: Moment,
         public note?: number,
         public photoContentType?: string,
         public photo?: any,
-        public num_rib?: number
+        public numRib?: number,
+        public disponibilites?: IDisponibilite[],
+        public historiqueAppels?: IHistoriqueAppel[],
+        public historiqueChats?: IHistoriqueChat[]
     ) {}
 }

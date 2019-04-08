@@ -2,6 +2,7 @@ package com.pu.askanexpert.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import com.pu.askanexpert.domain.enumeration.Domaine;
 import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.DoubleFilter;
 import io.github.jhipster.service.filter.Filter;
@@ -9,7 +10,6 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
-import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 
 /**
@@ -21,6 +21,11 @@ import io.github.jhipster.service.filter.LocalDateFilter;
  * fix type specific filters.
  */
 public class ExpertCriteria implements Serializable {
+    /**
+     * Class for filtering Domaine
+     */
+    public static class DomaineFilter extends Filter<Domaine> {
+    }
 
     private static final long serialVersionUID = 1L;
 
@@ -30,21 +35,25 @@ public class ExpertCriteria implements Serializable {
 
     private StringFilter prenom;
 
-    private LocalDateFilter date_naissance;
+    private LocalDateFilter dateNaissance;
 
     private StringFilter adresse;
 
-    private StringFilter domaine;
+    private DomaineFilter domaine;
 
     private StringFilter profession;
 
     private LongFilter prix;
 
-    private InstantFilter disponibilite;
-
     private IntegerFilter note;
 
-    private LongFilter num_rib;
+    private LongFilter numRib;
+
+    private LongFilter disponibiliteId;
+
+    private LongFilter historiqueAppelId;
+
+    private LongFilter historiqueChatId;
 
     public LongFilter getId() {
         return id;
@@ -70,12 +79,12 @@ public class ExpertCriteria implements Serializable {
         this.prenom = prenom;
     }
 
-    public LocalDateFilter getDate_naissance() {
-        return date_naissance;
+    public LocalDateFilter getDateNaissance() {
+        return dateNaissance;
     }
 
-    public void setDate_naissance(LocalDateFilter date_naissance) {
-        this.date_naissance = date_naissance;
+    public void setDateNaissance(LocalDateFilter dateNaissance) {
+        this.dateNaissance = dateNaissance;
     }
 
     public StringFilter getAdresse() {
@@ -86,11 +95,11 @@ public class ExpertCriteria implements Serializable {
         this.adresse = adresse;
     }
 
-    public StringFilter getDomaine() {
+    public DomaineFilter getDomaine() {
         return domaine;
     }
 
-    public void setDomaine(StringFilter domaine) {
+    public void setDomaine(DomaineFilter domaine) {
         this.domaine = domaine;
     }
 
@@ -110,14 +119,6 @@ public class ExpertCriteria implements Serializable {
         this.prix = prix;
     }
 
-    public InstantFilter getDisponibilite() {
-        return disponibilite;
-    }
-
-    public void setDisponibilite(InstantFilter disponibilite) {
-        this.disponibilite = disponibilite;
-    }
-
     public IntegerFilter getNote() {
         return note;
     }
@@ -126,12 +127,36 @@ public class ExpertCriteria implements Serializable {
         this.note = note;
     }
 
-    public LongFilter getNum_rib() {
-        return num_rib;
+    public LongFilter getNumRib() {
+        return numRib;
     }
 
-    public void setNum_rib(LongFilter num_rib) {
-        this.num_rib = num_rib;
+    public void setNumRib(LongFilter numRib) {
+        this.numRib = numRib;
+    }
+
+    public LongFilter getDisponibiliteId() {
+        return disponibiliteId;
+    }
+
+    public void setDisponibiliteId(LongFilter disponibiliteId) {
+        this.disponibiliteId = disponibiliteId;
+    }
+
+    public LongFilter getHistoriqueAppelId() {
+        return historiqueAppelId;
+    }
+
+    public void setHistoriqueAppelId(LongFilter historiqueAppelId) {
+        this.historiqueAppelId = historiqueAppelId;
+    }
+
+    public LongFilter getHistoriqueChatId() {
+        return historiqueChatId;
+    }
+
+    public void setHistoriqueChatId(LongFilter historiqueChatId) {
+        this.historiqueChatId = historiqueChatId;
     }
 
 
@@ -148,14 +173,16 @@ public class ExpertCriteria implements Serializable {
             Objects.equals(id, that.id) &&
             Objects.equals(nom, that.nom) &&
             Objects.equals(prenom, that.prenom) &&
-            Objects.equals(date_naissance, that.date_naissance) &&
+            Objects.equals(dateNaissance, that.dateNaissance) &&
             Objects.equals(adresse, that.adresse) &&
             Objects.equals(domaine, that.domaine) &&
             Objects.equals(profession, that.profession) &&
             Objects.equals(prix, that.prix) &&
-            Objects.equals(disponibilite, that.disponibilite) &&
             Objects.equals(note, that.note) &&
-            Objects.equals(num_rib, that.num_rib);
+            Objects.equals(numRib, that.numRib) &&
+            Objects.equals(disponibiliteId, that.disponibiliteId) &&
+            Objects.equals(historiqueAppelId, that.historiqueAppelId) &&
+            Objects.equals(historiqueChatId, that.historiqueChatId);
     }
 
     @Override
@@ -164,14 +191,16 @@ public class ExpertCriteria implements Serializable {
         id,
         nom,
         prenom,
-        date_naissance,
+        dateNaissance,
         adresse,
         domaine,
         profession,
         prix,
-        disponibilite,
         note,
-        num_rib
+        numRib,
+        disponibiliteId,
+        historiqueAppelId,
+        historiqueChatId
         );
     }
 
@@ -181,14 +210,16 @@ public class ExpertCriteria implements Serializable {
                 (id != null ? "id=" + id + ", " : "") +
                 (nom != null ? "nom=" + nom + ", " : "") +
                 (prenom != null ? "prenom=" + prenom + ", " : "") +
-                (date_naissance != null ? "date_naissance=" + date_naissance + ", " : "") +
+                (dateNaissance != null ? "dateNaissance=" + dateNaissance + ", " : "") +
                 (adresse != null ? "adresse=" + adresse + ", " : "") +
                 (domaine != null ? "domaine=" + domaine + ", " : "") +
                 (profession != null ? "profession=" + profession + ", " : "") +
                 (prix != null ? "prix=" + prix + ", " : "") +
-                (disponibilite != null ? "disponibilite=" + disponibilite + ", " : "") +
                 (note != null ? "note=" + note + ", " : "") +
-                (num_rib != null ? "num_rib=" + num_rib + ", " : "") +
+                (numRib != null ? "numRib=" + numRib + ", " : "") +
+                (disponibiliteId != null ? "disponibiliteId=" + disponibiliteId + ", " : "") +
+                (historiqueAppelId != null ? "historiqueAppelId=" + historiqueAppelId + ", " : "") +
+                (historiqueChatId != null ? "historiqueChatId=" + historiqueChatId + ", " : "") +
             "}";
     }
 

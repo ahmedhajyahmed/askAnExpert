@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-historique-appel-heading">Create or edit a Historique Appel</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!historiqueAppel.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="historiqueAppel.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateAppel">Date Appel</label>
+                    <div class="input-group">
+                        <input id="field_dateAppel" type="text" class="form-control" name="dateAppel" ngbDatepicker  #dateAppelDp="ngbDatepicker" [(ngModel)]="historiqueAppel.dateAppel"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateAppelDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateAppel?.dirty && editForm.controls.dateAppel?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateAppel?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                        [(ngModel)]="historiqueAppel.description" required></textarea>
+                    <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.description?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nomClient">Nom Client</label>
+                    <input type="text" class="form-control" name="nomClient" id="field_nomClient"
+                        [(ngModel)]="historiqueAppel.nomClient" required/>
+                    <div [hidden]="!(editForm.controls.nomClient?.dirty && editForm.controls.nomClient?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nomClient?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_expert">Expert</label>
+                    <select class="form-control" id="field_expert" name="expert" [(ngModel)]="historiqueAppel.expert" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="expertOption.id === historiqueAppel.expert?.id ? historiqueAppel.expert : expertOption" *ngFor="let expertOption of experts; trackBy: trackExpertById">{{expertOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

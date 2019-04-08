@@ -1,7 +1,5 @@
 {
-    "fluentMethods": true,
-    "clientRootFolder": "",
-    "relationships": [],
+    "name": "Expert",
     "fields": [
         {
             "fieldName": "nom",
@@ -18,11 +16,8 @@
             ]
         },
         {
-            "fieldName": "date_naissance",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldName": "dateNaissance",
+            "fieldType": "LocalDate"
         },
         {
             "fieldName": "adresse",
@@ -38,7 +33,8 @@
         },
         {
             "fieldName": "domaine",
-            "fieldType": "String",
+            "fieldType": "Domaine",
+            "fieldValues": "Informatique,Sante,Marketing,Communication,Juridique,Finance",
             "fieldValidateRules": [
                 "required"
             ]
@@ -58,16 +54,8 @@
             ]
         },
         {
-            "fieldName": "disponibilite",
-            "fieldType": "Instant",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
             "fieldName": "note",
-            "fieldType": "Integer",
-            "fieldValidateRules": []
+            "fieldType": "Integer"
         },
         {
             "fieldName": "photo",
@@ -75,19 +63,40 @@
             "fieldTypeBlobContent": "image"
         },
         {
-            "fieldName": "num_rib",
+            "fieldName": "numRib",
             "fieldType": "Long",
             "fieldValidateRules": [
                 "required"
             ]
         }
     ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "disponibilite",
+            "otherEntityRelationshipName": "expert",
+            "relationshipName": "disponibilite"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "historiqueAppel",
+            "otherEntityRelationshipName": "expert",
+            "relationshipName": "historiqueAppel"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "historiqueChat",
+            "otherEntityRelationshipName": "expert",
+            "relationshipName": "historiqueChat"
+        }
+    ],
     "changelogDate": "20190331171909",
-    "dto": "no",
-    "searchEngine": false,
-    "service": "serviceImpl",
     "entityTableName": "expert",
-    "databaseType": "sql",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": true,
-    "pagination": "pagination"
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
 }

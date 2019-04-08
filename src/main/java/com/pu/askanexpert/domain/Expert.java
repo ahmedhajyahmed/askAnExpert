@@ -1,6 +1,7 @@
 package com.pu.askanexpert.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -8,9 +9,12 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
+
+import com.pu.askanexpert.domain.enumeration.Domaine;
 
 /**
  * A Expert.
@@ -34,9 +38,8 @@ public class Expert implements Serializable {
     @Column(name = "prenom", nullable = false)
     private String prenom;
 
-    @NotNull
-    @Column(name = "date_naissance", nullable = false)
-    private LocalDate date_naissance;
+    @Column(name = "date_naissance")
+    private LocalDate dateNaissance;
 
     @NotNull
     @Column(name = "adresse", nullable = false)
@@ -47,8 +50,9 @@ public class Expert implements Serializable {
     private String description;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name = "domaine", nullable = false)
-    private String domaine;
+    private Domaine domaine;
 
     @NotNull
     @Column(name = "profession", nullable = false)
@@ -57,10 +61,6 @@ public class Expert implements Serializable {
     @NotNull
     @Column(name = "prix", nullable = false)
     private Long prix;
-
-    @NotNull
-    @Column(name = "disponibilite", nullable = false)
-    private Instant disponibilite;
 
     @Column(name = "note")
     private Integer note;
@@ -74,8 +74,17 @@ public class Expert implements Serializable {
 
     @NotNull
     @Column(name = "num_rib", nullable = false)
-    private Long num_rib;
+    private Long numRib;
 
+    @OneToMany(mappedBy = "expert")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Disponibilite> disponibilites = new HashSet<>();
+    @OneToMany(mappedBy = "expert")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<HistoriqueAppel> historiqueAppels = new HashSet<>();
+    @OneToMany(mappedBy = "expert")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<HistoriqueChat> historiqueChats = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -111,17 +120,17 @@ public class Expert implements Serializable {
         this.prenom = prenom;
     }
 
-    public LocalDate getDate_naissance() {
-        return date_naissance;
+    public LocalDate getDateNaissance() {
+        return dateNaissance;
     }
 
-    public Expert date_naissance(LocalDate date_naissance) {
-        this.date_naissance = date_naissance;
+    public Expert dateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
         return this;
     }
 
-    public void setDate_naissance(LocalDate date_naissance) {
-        this.date_naissance = date_naissance;
+    public void setDateNaissance(LocalDate dateNaissance) {
+        this.dateNaissance = dateNaissance;
     }
 
     public String getAdresse() {
@@ -150,16 +159,16 @@ public class Expert implements Serializable {
         this.description = description;
     }
 
-    public String getDomaine() {
+    public Domaine getDomaine() {
         return domaine;
     }
 
-    public Expert domaine(String domaine) {
+    public Expert domaine(Domaine domaine) {
         this.domaine = domaine;
         return this;
     }
 
-    public void setDomaine(String domaine) {
+    public void setDomaine(Domaine domaine) {
         this.domaine = domaine;
     }
 
@@ -187,19 +196,6 @@ public class Expert implements Serializable {
 
     public void setPrix(Long prix) {
         this.prix = prix;
-    }
-
-    public Instant getDisponibilite() {
-        return disponibilite;
-    }
-
-    public Expert disponibilite(Instant disponibilite) {
-        this.disponibilite = disponibilite;
-        return this;
-    }
-
-    public void setDisponibilite(Instant disponibilite) {
-        this.disponibilite = disponibilite;
     }
 
     public Integer getNote() {
@@ -241,17 +237,92 @@ public class Expert implements Serializable {
         this.photoContentType = photoContentType;
     }
 
-    public Long getNum_rib() {
-        return num_rib;
+    public Long getNumRib() {
+        return numRib;
     }
 
-    public Expert num_rib(Long num_rib) {
-        this.num_rib = num_rib;
+    public Expert numRib(Long numRib) {
+        this.numRib = numRib;
         return this;
     }
 
-    public void setNum_rib(Long num_rib) {
-        this.num_rib = num_rib;
+    public void setNumRib(Long numRib) {
+        this.numRib = numRib;
+    }
+
+    public Set<Disponibilite> getDisponibilites() {
+        return disponibilites;
+    }
+
+    public Expert disponibilites(Set<Disponibilite> disponibilites) {
+        this.disponibilites = disponibilites;
+        return this;
+    }
+
+    public Expert addDisponibilite(Disponibilite disponibilite) {
+        this.disponibilites.add(disponibilite);
+        disponibilite.setExpert(this);
+        return this;
+    }
+
+    public Expert removeDisponibilite(Disponibilite disponibilite) {
+        this.disponibilites.remove(disponibilite);
+        disponibilite.setExpert(null);
+        return this;
+    }
+
+    public void setDisponibilites(Set<Disponibilite> disponibilites) {
+        this.disponibilites = disponibilites;
+    }
+
+    public Set<HistoriqueAppel> getHistoriqueAppels() {
+        return historiqueAppels;
+    }
+
+    public Expert historiqueAppels(Set<HistoriqueAppel> historiqueAppels) {
+        this.historiqueAppels = historiqueAppels;
+        return this;
+    }
+
+    public Expert addHistoriqueAppel(HistoriqueAppel historiqueAppel) {
+        this.historiqueAppels.add(historiqueAppel);
+        historiqueAppel.setExpert(this);
+        return this;
+    }
+
+    public Expert removeHistoriqueAppel(HistoriqueAppel historiqueAppel) {
+        this.historiqueAppels.remove(historiqueAppel);
+        historiqueAppel.setExpert(null);
+        return this;
+    }
+
+    public void setHistoriqueAppels(Set<HistoriqueAppel> historiqueAppels) {
+        this.historiqueAppels = historiqueAppels;
+    }
+
+    public Set<HistoriqueChat> getHistoriqueChats() {
+        return historiqueChats;
+    }
+
+    public Expert historiqueChats(Set<HistoriqueChat> historiqueChats) {
+        this.historiqueChats = historiqueChats;
+        return this;
+    }
+
+    public Expert addHistoriqueChat(HistoriqueChat historiqueChat) {
+        this.historiqueChats.add(historiqueChat);
+        historiqueChat.setExpert(this);
+        return this;
+    }
+
+    public Expert removeHistoriqueChat(HistoriqueChat historiqueChat) {
+        this.historiqueChats.remove(historiqueChat);
+        historiqueChat.setExpert(null);
+        return this;
+    }
+
+    public void setHistoriqueChats(Set<HistoriqueChat> historiqueChats) {
+        this.historiqueChats = historiqueChats;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -281,17 +352,16 @@ public class Expert implements Serializable {
             "id=" + getId() +
             ", nom='" + getNom() + "'" +
             ", prenom='" + getPrenom() + "'" +
-            ", date_naissance='" + getDate_naissance() + "'" +
+            ", dateNaissance='" + getDateNaissance() + "'" +
             ", adresse='" + getAdresse() + "'" +
             ", description='" + getDescription() + "'" +
             ", domaine='" + getDomaine() + "'" +
             ", profession='" + getProfession() + "'" +
             ", prix=" + getPrix() +
-            ", disponibilite='" + getDisponibilite() + "'" +
             ", note=" + getNote() +
             ", photo='" + getPhoto() + "'" +
             ", photoContentType='" + getPhotoContentType() + "'" +
-            ", num_rib=" + getNum_rib() +
+            ", numRib=" + getNumRib() +
             "}";
     }
 }

@@ -5,9 +5,9 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import { DATE_FORMAT, DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { ExpertService } from 'app/entities/expert/expert.service';
-import { IExpert, Expert } from 'app/shared/model/expert.model';
+import { IExpert, Expert, Domaine } from 'app/shared/model/expert.model';
 
 describe('Service Tests', () => {
     describe('Expert Service', () => {
@@ -32,10 +32,9 @@ describe('Service Tests', () => {
                 currentDate,
                 'AAAAAAA',
                 'AAAAAAA',
-                'AAAAAAA',
+                Domaine.Informatique,
                 'AAAAAAA',
                 0,
-                currentDate,
                 0,
                 'image/png',
                 'AAAAAAA',
@@ -47,8 +46,7 @@ describe('Service Tests', () => {
             it('should find an element', async () => {
                 const returnedFromService = Object.assign(
                     {
-                        date_naissance: currentDate.format(DATE_FORMAT),
-                        disponibilite: currentDate.format(DATE_TIME_FORMAT)
+                        dateNaissance: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
@@ -65,15 +63,13 @@ describe('Service Tests', () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0,
-                        date_naissance: currentDate.format(DATE_FORMAT),
-                        disponibilite: currentDate.format(DATE_TIME_FORMAT)
+                        dateNaissance: currentDate.format(DATE_FORMAT)
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        date_naissance: currentDate,
-                        disponibilite: currentDate
+                        dateNaissance: currentDate
                     },
                     returnedFromService
                 );
@@ -90,24 +86,22 @@ describe('Service Tests', () => {
                     {
                         nom: 'BBBBBB',
                         prenom: 'BBBBBB',
-                        date_naissance: currentDate.format(DATE_FORMAT),
+                        dateNaissance: currentDate.format(DATE_FORMAT),
                         adresse: 'BBBBBB',
                         description: 'BBBBBB',
                         domaine: 'BBBBBB',
                         profession: 'BBBBBB',
                         prix: 1,
-                        disponibilite: currentDate.format(DATE_TIME_FORMAT),
                         note: 1,
                         photo: 'BBBBBB',
-                        num_rib: 1
+                        numRib: 1
                     },
                     elemDefault
                 );
 
                 const expected = Object.assign(
                     {
-                        date_naissance: currentDate,
-                        disponibilite: currentDate
+                        dateNaissance: currentDate
                     },
                     returnedFromService
                 );
@@ -124,23 +118,21 @@ describe('Service Tests', () => {
                     {
                         nom: 'BBBBBB',
                         prenom: 'BBBBBB',
-                        date_naissance: currentDate.format(DATE_FORMAT),
+                        dateNaissance: currentDate.format(DATE_FORMAT),
                         adresse: 'BBBBBB',
                         description: 'BBBBBB',
                         domaine: 'BBBBBB',
                         profession: 'BBBBBB',
                         prix: 1,
-                        disponibilite: currentDate.format(DATE_TIME_FORMAT),
                         note: 1,
                         photo: 'BBBBBB',
-                        num_rib: 1
+                        numRib: 1
                     },
                     elemDefault
                 );
                 const expected = Object.assign(
                     {
-                        date_naissance: currentDate,
-                        disponibilite: currentDate
+                        dateNaissance: currentDate
                     },
                     returnedFromService
                 );

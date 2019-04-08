@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="historiqueChat">
+            <h2><span>Historique Chat</span> {{historiqueChat.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Date Appel</span></dt>
+                <dd>
+                    <span>{{historiqueChat.dateAppel}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{historiqueChat.description}}</span>
+                </dd>
+                <dt><span>Nom Client</span></dt>
+                <dd>
+                    <span>{{historiqueChat.nomClient}}</span>
+                </dd>
+                <dt><span>Expert</span></dt>
+                <dd>
+                    <div *ngIf="historiqueChat.expert">
+                        <a [routerLink]="['/expert', historiqueChat.expert?.id, 'view']">{{historiqueChat.expert?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/historique-chat', historiqueChat.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
