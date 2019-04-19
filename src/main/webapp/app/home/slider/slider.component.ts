@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styles: []
 })
 export class SliderComponent implements OnInit {
+    path = 'http://localhost:9000/#/';
     constructor() {}
 
     ngOnInit() {}

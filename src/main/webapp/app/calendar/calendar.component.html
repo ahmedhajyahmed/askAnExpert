@@ -1,7 +1,8 @@
-<full-calendar
-    [plugins]="calendarPlugins"
-    defaultView="dayGridMonth"
-    [events]="calendarEvents"
+<full-calendar #calendar
+            [plugins]="calendarPlugins"
+            [header]="{center: 'dayGridMonth,timeGridWeek'}"
+            defaultView="dayGridMonth"
+            [events]="calendarEvents"
 ></full-calendar>
 
 <!--                    [events]="[
