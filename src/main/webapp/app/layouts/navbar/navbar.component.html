@@ -17,24 +17,33 @@
                 </a>
             </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+
+            <!-- nav bar for expert  -->
+
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_EXPERT']">
                 <a class="nav-link" routerLink="calendar" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <span>
-                        <fa-icon icon="th-list"></fa-icon>
+                        <fa-icon icon="calendar-alt" ></fa-icon>
                         <span>Calendar</span>
                     </span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_USER']">
+
+            <!-- nav bar for user  -->
+
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_USER']">
                 <a class="nav-link" routerLink="expert" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <span>
                         <fa-icon icon="th-list"></fa-icon>
-                        <span>Expert</span>
+                        <span>Experts</span>
                     </span>
                 </a>
             </li>
+
+            <!-- nav bar for admin  -->
+
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-            <!--<li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <li ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_Admin']">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
                     <span>
                         <fa-icon icon="th-list"></fa-icon>
@@ -49,7 +58,7 @@
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Expert</span>
                         </a>
-                    </li> -->
+                    </li>
                     <li>
                         <a class="dropdown-item" routerLink="disponibilite" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
@@ -69,8 +78,8 @@
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-               <!-- </ul>
-            </li> -->
+                </ul>
+            </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                     <span>
@@ -144,6 +153,12 @@
                         </a>
                     </li>
                     <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="history" routerLinkActive="active" (click)="collapseNavbar()">
+                            <fa-icon icon="tasks" fixedWidth="true"></fa-icon>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
                         <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
                             <fa-icon icon="clock" fixedWidth="true"></fa-icon>
                             <span>Password</span>
@@ -168,6 +183,14 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" *jhiHasAnyAuthority="['ROLE_EXPERT', 'ROLE_USER']">
+                <a class="nav-link" routerLink="notification" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="bell" ></fa-icon>
+                        <!--<span>Notification</span> -->
+                    </span>
+                </a>
             </li>
         </ul>
     </div>

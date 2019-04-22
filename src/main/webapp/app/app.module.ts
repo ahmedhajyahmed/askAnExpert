@@ -23,14 +23,7 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
 import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
-// import { RouterModule, Routes } from '@angular/router';
-
-/* const appRoutes: Routes = [
-    {   path: 'carousel',
-        redirectTo: '#carouselExampleIndicators',
-        pathMatch: 'full',
-    }
-];*/
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
 
 @NgModule({
     imports: [
@@ -49,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
         AskAnExpertEntityModule,
         AskAnExpertAppRoutingModule,
         FullCalendarModule,
-        HttpClientModule
+        HttpClientModule,
+        Ng2CarouselamosModule
         /* RouterModule.forRoot(
             appRoutes,
             { enableTracing: true } // <-- debugging purposes only
