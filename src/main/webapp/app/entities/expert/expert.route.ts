@@ -11,6 +11,7 @@ import { ExpertComponent } from './expert.component';
 import { ExpertDetailComponent } from './expert-detail.component';
 import { ExpertUpdateComponent } from './expert-update.component';
 import { ExpertDeletePopupComponent } from './expert-delete-dialog.component';
+import { NoteComponent } from 'app/entities/expert/note.component';
 import { IExpert } from 'app/shared/model/expert.model';
 
 @Injectable({ providedIn: 'root' })
@@ -78,6 +79,10 @@ export const expertRoute: Routes = [
             pageTitle: 'Experts'
         },
         canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'note',
+        component: NoteComponent
     }
 ];
 

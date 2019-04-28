@@ -24,7 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
-import { NoteComponent } from './note/note.component';
+// import { NoteComponent } from './entities/expert/note.component';
 
 @NgModule({
     imports: [
@@ -56,8 +56,8 @@ import { NoteComponent } from './note/note.component';
         ErrorComponent,
         PageRibbonComponent,
         FooterComponent,
-        CalendarComponent,
-        NoteComponent
+        CalendarComponent
+        // NoteComponent
     ],
     providers: [
         {
