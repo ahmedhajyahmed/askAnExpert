@@ -24,6 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+import { NoteComponent } from './note/note.component';
 
 @NgModule({
     imports: [
@@ -49,7 +50,15 @@ import { Ng2CarouselamosModule } from 'ng2-carouselamos';
             { enableTracing: true } // <-- debugging purposes only
         )*/
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent, CalendarComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        FooterComponent,
+        CalendarComponent,
+        NoteComponent
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

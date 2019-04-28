@@ -1,26 +1,23 @@
 <div class="row justify-content-center">
     <div class="col-8">
+       <div class="row">
+            <div class="col-lg-8">
         <div *ngIf="expert">
-            <h2><span>Expert</span> {{expert.id}}</h2>
+            <h2 style="margin-top: 10px; margin-left: 50px;"><span>{{expert.nom}} {{expert.prenom}}</span>             
+                 </h2>
+             </div>
+            </div>
+              <div class="col-lg-4">
+                 <div *ngIf="expert.photo">
+                    <a (click)="openFile(expert.photoContentType, expert.photo)">
+                        <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="width: 50%;" alt="expert image"/>
+                    </a>
+                </div>
+                </div>
+                </div>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Nom</span></dt>
-                <dd>
-                    <span>{{expert.nom}}</span>
-                </dd>
-                <dt><span>Prenom</span></dt>
-                <dd>
-                    <span>{{expert.prenom}}</span>
-                </dd>
-                <dt><span>Date Naissance</span></dt>
-                <dd>
-                    <span>{{expert.dateNaissance}}</span>
-                </dd>
-                <dt><span>Adresse</span></dt>
-                <dd>
-                    <span>{{expert.adresse}}</span>
-                </dd>
                 <dt><span>Description</span></dt>
                 <dd>
                     <span>{{expert.description}}</span>
@@ -41,14 +38,13 @@
                 <dd>
                     <span>{{expert.note}}</span>
                 </dd>
-                <dt><span>Photo</span></dt>
+                <dt><span>Date Naissance</span></dt>
                 <dd>
-                    <div *ngIf="expert.photo">
-                        <a (click)="openFile(expert.photoContentType, expert.photo)">
-                            <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="max-width: 100%;" alt="expert image"/>
-                        </a>
-                        {{expert.photoContentType}}, {{byteSize(expert.photo)}}
-                    </div>
+                    <span>{{expert.dateNaissance  | date:'mediumDate'}}</span>
+                </dd>
+                <dt><span>Adresse</span></dt>
+                <dd>
+                    <span>{{expert.adresse}}</span>
                 </dd>
                 <dt><span>Num Rib</span></dt>
                 <dd>
@@ -59,14 +55,20 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
             </button>
 
             <button type="button"
-                    [routerLink]="['/expert', expert.id, 'edit']"
+                    [routerLink]="Note"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+                <fa-icon [icon]="'star'"></fa-icon>&nbsp;<span> Noter</span>
             </button>
+
+            <button type="button"
+            [routerLink]="['/expert', expert.id, 'edit']"
+            class="btn btn-primary">
+        <fa-icon [icon]="'calendar'"></fa-icon>&nbsp;<span> Rendez-vous</span>
+    </button>
         </div>
     </div>
 </div>
