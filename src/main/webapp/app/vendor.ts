@@ -1,6 +1,9 @@
 /* after changing this file run 'npm run webpack:build' */
 /* tslint:disable */
 import '../content/css/vendor.css';
+import '@ng-bootstrap/ng-bootstrap';
+import 'popper.js';
+import 'jquery';
 
 // Imports all fontawesome core and solid icons
 

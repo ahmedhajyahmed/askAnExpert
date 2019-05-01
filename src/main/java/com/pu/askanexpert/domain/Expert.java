@@ -78,13 +78,16 @@ public class Expert implements Serializable {
 
     @OneToMany(mappedBy = "expert")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Disponibilite> disponibilites = new HashSet<>();
+    private Set<NonDisponibilite> disponibilites = new HashSet<>();
     @OneToMany(mappedBy = "expert")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<HistoriqueAppel> historiqueAppels = new HashSet<>();
     @OneToMany(mappedBy = "expert")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<HistoriqueChat> historiqueChats = new HashSet<>();
+    @OneToMany(mappedBy = "expert")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RendezVous> rendezVous = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -250,29 +253,29 @@ public class Expert implements Serializable {
         this.numRib = numRib;
     }
 
-    public Set<Disponibilite> getDisponibilites() {
+    public Set<NonDisponibilite> getDisponibilites() {
         return disponibilites;
     }
 
-    public Expert disponibilites(Set<Disponibilite> disponibilites) {
-        this.disponibilites = disponibilites;
+    public Expert disponibilites(Set<NonDisponibilite> nonDisponibilites) {
+        this.disponibilites = nonDisponibilites;
         return this;
     }
 
-    public Expert addDisponibilite(Disponibilite disponibilite) {
-        this.disponibilites.add(disponibilite);
-        disponibilite.setExpert(this);
+    public Expert addDisponibilite(NonDisponibilite nonDisponibilite) {
+        this.disponibilites.add(nonDisponibilite);
+        nonDisponibilite.setExpert(this);
         return this;
     }
 
-    public Expert removeDisponibilite(Disponibilite disponibilite) {
-        this.disponibilites.remove(disponibilite);
-        disponibilite.setExpert(null);
+    public Expert removeDisponibilite(NonDisponibilite nonDisponibilite) {
+        this.disponibilites.remove(nonDisponibilite);
+        nonDisponibilite.setExpert(null);
         return this;
     }
 
-    public void setDisponibilites(Set<Disponibilite> disponibilites) {
-        this.disponibilites = disponibilites;
+    public void setDisponibilites(Set<NonDisponibilite> nonDisponibilites) {
+        this.disponibilites = nonDisponibilites;
     }
 
     public Set<HistoriqueAppel> getHistoriqueAppels() {
@@ -323,6 +326,31 @@ public class Expert implements Serializable {
 
     public void setHistoriqueChats(Set<HistoriqueChat> historiqueChats) {
         this.historiqueChats = historiqueChats;
+    }
+
+    public Set<RendezVous> getRendezVous() {
+        return rendezVous;
+    }
+
+    public Expert rendezVous(Set<RendezVous> rendezVous) {
+        this.rendezVous = rendezVous;
+        return this;
+    }
+
+    public Expert addRendezVous(RendezVous rendezVous) {
+        this.rendezVous.add(rendezVous);
+        rendezVous.setExpert(this);
+        return this;
+    }
+
+    public Expert removeRendezVous(RendezVous rendezVous) {
+        this.rendezVous.remove(rendezVous);
+        rendezVous.setExpert(null);
+        return this;
+    }
+
+    public void setRendezVous(Set<RendezVous> rendezVous) {
+        this.rendezVous = rendezVous;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

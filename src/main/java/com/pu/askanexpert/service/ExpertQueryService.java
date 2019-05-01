@@ -112,7 +112,7 @@ public class ExpertQueryService extends QueryService<Expert> {
             }
             if (criteria.getDisponibiliteId() != null) {
                 specification = specification.and(buildSpecification(criteria.getDisponibiliteId(),
-                    root -> root.join(Expert_.disponibilites, JoinType.LEFT).get(Disponibilite_.id)));
+                    root -> root.join(Expert_.disponibilites, JoinType.LEFT).get(NonDisponibilite_.id)));
             }
             if (criteria.getHistoriqueAppelId() != null) {
                 specification = specification.and(buildSpecification(criteria.getHistoriqueAppelId(),
@@ -121,6 +121,10 @@ public class ExpertQueryService extends QueryService<Expert> {
             if (criteria.getHistoriqueChatId() != null) {
                 specification = specification.and(buildSpecification(criteria.getHistoriqueChatId(),
                     root -> root.join(Expert_.historiqueChats, JoinType.LEFT).get(HistoriqueChat_.id)));
+            }
+            if (criteria.getRendezVousId() != null) {
+                specification = specification.and(buildSpecification(criteria.getRendezVousId(),
+                    root -> root.join(Expert_.rendezVous, JoinType.LEFT).get(RendezVous_.id)));
             }
         }
         return specification;

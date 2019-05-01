@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'jhi-slider',
     templateUrl: './slider.component.html',
-    styles: []
+    styleUrls: ['slider.component.css']
 })
 export class SliderComponent implements OnInit {
     items: Array<any> = [];

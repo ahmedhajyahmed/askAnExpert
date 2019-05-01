@@ -23,7 +23,7 @@ enum Domaine {
     Juridique, Finance
 }
 
-entity Disponibilite {
+entity NonDisponibilite {
 	date Instant required,
     }
 
@@ -39,12 +39,22 @@ entity HistoriqueChat{
     nomClient String required
 }
 
+entity RendezVous{
+	start LocalDate required,
+    end LocalDate ,
+    title String required,
+    allDay Boolean,
+    url String
+}
+
 relationship OneToMany {
-	Expert{disponibilite} to Disponibilite,
+	Expert{disponibilite} to NonDisponibilite,
     Expert{historiqueAppel} to HistoriqueAppel,
-    Expert{historiqueChat} to HistoriqueChat
+    Expert{historiqueChat} to HistoriqueChat,
+    Expert{rendezVous} to RendezVous
 }
 
 paginate HistoriqueChat with pagination
 paginate HistoriqueAppel with pagination
-service Disponibilite, HistoriqueAppel, HistoriqueChat with serviceImpl
+paginate RendezVous with pagination
+service NonDisponibilite, HistoriqueAppel, HistoriqueChat with serviceImpl

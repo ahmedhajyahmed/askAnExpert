@@ -73,7 +73,7 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "otherEntityName": "disponibilite",
+            "otherEntityName": "nonDisponibilite",
             "otherEntityRelationshipName": "expert",
             "relationshipName": "disponibilite"
         },
@@ -88,6 +88,12 @@
             "otherEntityName": "historiqueChat",
             "otherEntityRelationshipName": "expert",
             "relationshipName": "historiqueChat"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "rendezVous",
+            "otherEntityRelationshipName": "expert",
+            "relationshipName": "rendezVous"
         }
     ],
     "changelogDate": "20190331171909",

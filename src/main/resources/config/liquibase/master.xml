@@ -9,9 +9,13 @@
     <include file="config/liquibase/changelog/20190408063544_added_entity_Disponibilite.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408063545_added_entity_HistoriqueAppel.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408063546_added_entity_HistoriqueChat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190429213412_added_entity_NonDisponibilite.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190429213415_added_entity_RendezVous.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190408063544_added_entity_constraints_Disponibilite.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408063545_added_entity_constraints_HistoriqueAppel.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190408063546_added_entity_constraints_HistoriqueChat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190429213412_added_entity_constraints_NonDisponibilite.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190429213415_added_entity_constraints_RendezVous.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

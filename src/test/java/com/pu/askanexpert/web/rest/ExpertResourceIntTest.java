@@ -3,9 +3,10 @@ package com.pu.askanexpert.web.rest;
 import com.pu.askanexpert.AskAnExpertApp;
 
 import com.pu.askanexpert.domain.Expert;
-import com.pu.askanexpert.domain.Disponibilite;
+import com.pu.askanexpert.domain.NonDisponibilite;
 import com.pu.askanexpert.domain.HistoriqueAppel;
 import com.pu.askanexpert.domain.HistoriqueChat;
+import com.pu.askanexpert.domain.RendezVous;
 import com.pu.askanexpert.repository.ExpertRepository;
 import com.pu.askanexpert.service.ExpertService;
 import com.pu.askanexpert.web.rest.errors.ExceptionTranslator;
@@ -840,7 +841,7 @@ public class ExpertResourceIntTest {
     @Transactional
     public void getAllExpertsByDisponibiliteIsEqualToSomething() throws Exception {
         // Initialize the database
-        Disponibilite disponibilite = DisponibiliteResourceIntTest.createEntity(em);
+        NonDisponibilite disponibilite = NonDisponibiliteResourceIntTest.createEntity(em);
         em.persist(disponibilite);
         em.flush();
         expert.addDisponibilite(disponibilite);
@@ -890,6 +891,25 @@ public class ExpertResourceIntTest {
 
         // Get all the expertList where historiqueChat equals to historiqueChatId + 1
         defaultExpertShouldNotBeFound("historiqueChatId.equals=" + (historiqueChatId + 1));
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllExpertsByRendezVousIsEqualToSomething() throws Exception {
+        // Initialize the database
+        RendezVous rendezVous = RendezVousResourceIntTest.createEntity(em);
+        em.persist(rendezVous);
+        em.flush();
+        expert.addRendezVous(rendezVous);
+        expertRepository.saveAndFlush(expert);
+        Long rendezVousId = rendezVous.getId();
+
+        // Get all the expertList where rendezVous equals to rendezVousId
+        defaultExpertShouldBeFound("rendezVousId.equals=" + rendezVousId);
+
+        // Get all the expertList where rendezVous equals to rendezVousId + 1
+        defaultExpertShouldNotBeFound("rendezVousId.equals=" + (rendezVousId + 1));
     }
 
     /**

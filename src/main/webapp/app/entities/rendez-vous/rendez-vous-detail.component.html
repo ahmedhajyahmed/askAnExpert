@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="rendezVous">
+            <h2><span>Rendez Vous</span> {{rendezVous.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Start</span></dt>
+                <dd>
+                    <span>{{rendezVous.start}}</span>
+                </dd>
+                <dt><span>End</span></dt>
+                <dd>
+                    <span>{{rendezVous.end}}</span>
+                </dd>
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{rendezVous.title}}</span>
+                </dd>
+                <dt><span>All Day</span></dt>
+                <dd>
+                    <span>{{rendezVous.allDay}}</span>
+                </dd>
+                <dt><span>Url</span></dt>
+                <dd>
+                    <span>{{rendezVous.url}}</span>
+                </dd>
+                <dt><span>Expert</span></dt>
+                <dd>
+                    <div *ngIf="rendezVous.expert">
+                        <a [routerLink]="['/expert', rendezVous.expert?.id, 'view']">{{rendezVous.expert?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/rendez-vous', rendezVous.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

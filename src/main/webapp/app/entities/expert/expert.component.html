@@ -16,36 +16,38 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nom"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!--<th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-            <!--<th jhiSortBy="dateNaissance"><span>Date Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-            <!--<th jhiSortBy="adresse"><span>Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateNaissance"><span>Date Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="adresse"><span>Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="domaine"><span>Domaine</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!--<th jhiSortBy="profession"><span>Profession</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="profession"><span>Profession</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="prix"><span>Prix</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span>Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="photo"><span>Photo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <!--<th jhiSortBy="numRib"><span>Num Rib</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="numRib"><span>Num Rib</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let expert of experts ;trackBy: trackId">
                 <td><a [routerLink]="['/expert', expert.id, 'view' ]">{{expert.id}}</a></td>
-                <td>{{expert.nom}}&nbsp;{{expert.prenom}}</td>
-                <!--<td>{{expert.dateNaissance | date:'mediumDate'}}</td>-->
-                <!--<td>{{expert.adresse}}</td>-->
+                <td>{{expert.nom}}</td>
+                <td>{{expert.prenom}}</td>
+                <td>{{expert.dateNaissance | date:'mediumDate'}}</td>
+                <td>{{expert.adresse}}</td>
                 <td>{{expert.description}}</td>
                 <td>{{expert.domaine}}</td>
-                <!--<td>{{expert.profession}}</td>-->
+                <td>{{expert.profession}}</td>
                 <td>{{expert.prix}}</td>
                 <td>{{expert.note}}</td>
                 <td>
                     <a *ngIf="expert.photo" (click)="openFile(expert.photoContentType, expert.photo)">
-                        <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="height: 72px;width:128px;"alt="expert image"/>
+                        <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo" style="max-height: 30px;" alt="expert image"/>
                     </a>
+                    <span *ngIf="expert.photo">{{expert.photoContentType}}, {{byteSize(expert.photo)}}</span>
                 </td>
-                <!--<td>{{expert.numRib}}</td>-->
+                <td>{{expert.numRib}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

@@ -1,4 +1,6 @@
+
 <full-calendar #calendar
+            (eventClick)="handleEventClick($event)"
             [plugins]="calendarPlugins"
             [header]="{center: 'dayGridMonth,timeGridWeek'}"
             defaultView="dayGridMonth"
@@ -11,3 +13,57 @@
                         ]"
                         [weekends]="false"
  -->
+
+
+<!--<div style="margin-top: -1126px; padding-bottom: 805px">
+    <div class="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document" id="pop-up" style="display: none">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p class="heading">Event</p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-5">
+                        <img src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(55).jpg"
+                             class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-7">
+                        <p><strong>{{title}}</strong></p>
+                        <p>{{date}}</p>
+                        <button type="button" class="btn btn-info btn-md">Read more</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+
+
+<form>
+    <div class="form-group">
+        <label for="title">Objet du rendez-vous</label>
+        <input type="text" class="form-control" id="title" aria-describedby="emailHelp" placeholder="objet du rendez-vous">
+        <small id="emailHelp" class="form-text text-muted">L'objet du rendez-vous ne doit pas dépasser 255 caractère.</small>
+    </div>
+    <div class="form-group">
+        <label for="date">date du début</label>
+        <input type="datetime-local" class="form-control" id="date" placeholder="Password">
+    </div>
+    <button (click)="putData($event)" type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+
+

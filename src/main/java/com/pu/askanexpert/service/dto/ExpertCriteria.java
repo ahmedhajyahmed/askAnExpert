@@ -55,6 +55,8 @@ public class ExpertCriteria implements Serializable {
 
     private LongFilter historiqueChatId;
 
+    private LongFilter rendezVousId;
+
     public LongFilter getId() {
         return id;
     }
@@ -159,6 +161,14 @@ public class ExpertCriteria implements Serializable {
         this.historiqueChatId = historiqueChatId;
     }
 
+    public LongFilter getRendezVousId() {
+        return rendezVousId;
+    }
+
+    public void setRendezVousId(LongFilter rendezVousId) {
+        this.rendezVousId = rendezVousId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -182,7 +192,8 @@ public class ExpertCriteria implements Serializable {
             Objects.equals(numRib, that.numRib) &&
             Objects.equals(disponibiliteId, that.disponibiliteId) &&
             Objects.equals(historiqueAppelId, that.historiqueAppelId) &&
-            Objects.equals(historiqueChatId, that.historiqueChatId);
+            Objects.equals(historiqueChatId, that.historiqueChatId) &&
+            Objects.equals(rendezVousId, that.rendezVousId);
     }
 
     @Override
@@ -200,7 +211,8 @@ public class ExpertCriteria implements Serializable {
         numRib,
         disponibiliteId,
         historiqueAppelId,
-        historiqueChatId
+        historiqueChatId,
+        rendezVousId
         );
     }
 
@@ -220,6 +232,7 @@ public class ExpertCriteria implements Serializable {
                 (disponibiliteId != null ? "disponibiliteId=" + disponibiliteId + ", " : "") +
                 (historiqueAppelId != null ? "historiqueAppelId=" + historiqueAppelId + ", " : "") +
                 (historiqueChatId != null ? "historiqueChatId=" + historiqueChatId + ", " : "") +
+                (rendezVousId != null ? "rendezVousId=" + rendezVousId + ", " : "") +
             "}";
     }
 

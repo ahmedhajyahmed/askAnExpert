@@ -1,7 +1,8 @@
 import { Moment } from 'moment';
-import { IDisponibilite } from 'app/shared/model/disponibilite.model';
+import { INonDisponibilite } from 'app/shared/model/non-disponibilite.model';
 import { IHistoriqueAppel } from 'app/shared/model/historique-appel.model';
 import { IHistoriqueChat } from 'app/shared/model/historique-chat.model';
+import { IRendezVous } from 'app/shared/model/rendez-vous.model';
 
 export const enum Domaine {
     Informatique = 'Informatique',
@@ -26,9 +27,10 @@ export interface IExpert {
     photoContentType?: string;
     photo?: any;
     numRib?: number;
-    disponibilites?: IDisponibilite[];
+    disponibilites?: INonDisponibilite[];
     historiqueAppels?: IHistoriqueAppel[];
     historiqueChats?: IHistoriqueChat[];
+    rendezVous?: IRendezVous[];
 }
 
 export class Expert implements IExpert {
@@ -46,8 +48,9 @@ export class Expert implements IExpert {
         public photoContentType?: string,
         public photo?: any,
         public numRib?: number,
-        public disponibilites?: IDisponibilite[],
+        public disponibilites?: INonDisponibilite[],
         public historiqueAppels?: IHistoriqueAppel[],
-        public historiqueChats?: IHistoriqueChat[]
+        public historiqueChats?: IHistoriqueChat[],
+        public rendezVous?: IRendezVous[]
     ) {}
 }
