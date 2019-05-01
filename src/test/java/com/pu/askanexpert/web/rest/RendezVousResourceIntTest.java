@@ -4,6 +4,7 @@ import com.pu.askanexpert.AskAnExpertApp;
 
 import com.pu.askanexpert.domain.RendezVous;
 import com.pu.askanexpert.repository.RendezVousRepository;
+import com.pu.askanexpert.service.RendezVousService;
 import com.pu.askanexpert.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -61,6 +62,9 @@ public class RendezVousResourceIntTest {
     private RendezVousRepository rendezVousRepository;
 
     @Autowired
+    private RendezVousService rendezVousService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -82,7 +86,7 @@ public class RendezVousResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final RendezVousResource rendezVousResource = new RendezVousResource(rendezVousRepository);
+        final RendezVousResource rendezVousResource = new RendezVousResource(rendezVousService);
         this.restRendezVousMockMvc = MockMvcBuilders.standaloneSetup(rendezVousResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -237,7 +241,7 @@ public class RendezVousResourceIntTest {
     @Transactional
     public void updateRendezVous() throws Exception {
         // Initialize the database
-        rendezVousRepository.saveAndFlush(rendezVous);
+        rendezVousService.save(rendezVous);
 
         int databaseSizeBeforeUpdate = rendezVousRepository.findAll().size();
 
@@ -290,7 +294,7 @@ public class RendezVousResourceIntTest {
     @Transactional
     public void deleteRendezVous() throws Exception {
         // Initialize the database
-        rendezVousRepository.saveAndFlush(rendezVous);
+        rendezVousService.save(rendezVous);
 
         int databaseSizeBeforeDelete = rendezVousRepository.findAll().size();
 

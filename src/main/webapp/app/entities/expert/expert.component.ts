@@ -13,8 +13,7 @@ import { ExpertService } from './expert.service';
 
 @Component({
     selector: 'jhi-expert',
-    templateUrl: './expert.component.html',
-    styleUrls: ['expert.css']
+    templateUrl: './expert.component.html'
 })
 export class ExpertComponent implements OnInit, OnDestroy {
     currentAccount: any;

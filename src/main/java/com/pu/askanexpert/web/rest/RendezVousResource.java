@@ -1,6 +1,6 @@
 package com.pu.askanexpert.web.rest;
 import com.pu.askanexpert.domain.RendezVous;
-import com.pu.askanexpert.repository.RendezVousRepository;
+import com.pu.askanexpert.service.RendezVousService;
 import com.pu.askanexpert.web.rest.errors.BadRequestAlertException;
 import com.pu.askanexpert.web.rest.util.HeaderUtil;
 import com.pu.askanexpert.web.rest.util.PaginationUtil;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -33,10 +32,10 @@ public class RendezVousResource {
 
     private static final String ENTITY_NAME = "rendezVous";
 
-    private final RendezVousRepository rendezVousRepository;
+    private final RendezVousService rendezVousService;
 
-    public RendezVousResource(RendezVousRepository rendezVousRepository) {
-        this.rendezVousRepository = rendezVousRepository;
+    public RendezVousResource(RendezVousService rendezVousService) {
+        this.rendezVousService = rendezVousService;
     }
 
     /**
@@ -52,7 +51,7 @@ public class RendezVousResource {
         if (rendezVous.getId() != null) {
             throw new BadRequestAlertException("A new rendezVous cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RendezVous result = rendezVousRepository.save(rendezVous);
+        RendezVous result = rendezVousService.save(rendezVous);
         return ResponseEntity.created(new URI("/api/rendez-vous/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -73,7 +72,7 @@ public class RendezVousResource {
         if (rendezVous.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RendezVous result = rendezVousRepository.save(rendezVous);
+        RendezVous result = rendezVousService.save(rendezVous);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, rendezVous.getId().toString()))
             .body(result);
@@ -88,7 +87,7 @@ public class RendezVousResource {
     @GetMapping("/rendez-vous")
     public ResponseEntity<List<RendezVous>> getAllRendezVous(Pageable pageable) {
         log.debug("REST request to get a page of RendezVous");
-        Page<RendezVous> page = rendezVousRepository.findAll(pageable);
+        Page<RendezVous> page = rendezVousService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/rendez-vous");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -102,14 +101,7 @@ public class RendezVousResource {
     @GetMapping("/rendez-vous/{id}")
     public ResponseEntity<RendezVous> getRendezVous(@PathVariable Long id) {
         log.debug("REST request to get RendezVous : {}", id);
-        Optional<RendezVous> rendezVous = rendezVousRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(rendezVous);
-    }
-
-    @GetMapping("rendez_vous/expert/{id}")
-    public ResponseEntity<RendezVous> getRendezVousByExpert(@PathVariable Long id) {
-        log.debug("REST reuest to get RendezVous by Expert : {}", id);
-        Optional<RendezVous> rendezVous = rendezVousRepository.findRendezVousByExpertId(id);
+        Optional<RendezVous> rendezVous = rendezVousService.findOne(id);
         return ResponseUtil.wrapOrNotFound(rendezVous);
     }
 
@@ -122,7 +114,7 @@ public class RendezVousResource {
     @DeleteMapping("/rendez-vous/{id}")
     public ResponseEntity<Void> deleteRendezVous(@PathVariable Long id) {
         log.debug("REST request to delete RendezVous : {}", id);
-        rendezVousRepository.deleteById(id);
+        rendezVousService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

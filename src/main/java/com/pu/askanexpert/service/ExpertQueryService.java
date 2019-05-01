@@ -101,6 +101,15 @@ public class ExpertQueryService extends QueryService<Expert> {
             if (criteria.getProfession() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getProfession(), Expert_.profession));
             }
+            if (criteria.getSkill1() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSkill1(), Expert_.skill1));
+            }
+            if (criteria.getSkill2() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSkill2(), Expert_.skill2));
+            }
+            if (criteria.getSkill3() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSkill3(), Expert_.skill3));
+            }
             if (criteria.getPrix() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getPrix(), Expert_.prix));
             }

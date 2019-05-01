@@ -47,6 +47,21 @@
             ]
         },
         {
+            "fieldName": "skill1",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "skill2",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "skill3",
+            "fieldType": "String"
+        },
+        {
             "fieldName": "prix",
             "fieldType": "Long",
             "fieldValidateRules": [

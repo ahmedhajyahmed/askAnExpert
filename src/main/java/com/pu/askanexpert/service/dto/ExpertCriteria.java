@@ -43,6 +43,12 @@ public class ExpertCriteria implements Serializable {
 
     private StringFilter profession;
 
+    private StringFilter skill1;
+
+    private StringFilter skill2;
+
+    private StringFilter skill3;
+
     private LongFilter prix;
 
     private IntegerFilter note;
@@ -111,6 +117,30 @@ public class ExpertCriteria implements Serializable {
 
     public void setProfession(StringFilter profession) {
         this.profession = profession;
+    }
+
+    public StringFilter getSkill1() {
+        return skill1;
+    }
+
+    public void setSkill1(StringFilter skill1) {
+        this.skill1 = skill1;
+    }
+
+    public StringFilter getSkill2() {
+        return skill2;
+    }
+
+    public void setSkill2(StringFilter skill2) {
+        this.skill2 = skill2;
+    }
+
+    public StringFilter getSkill3() {
+        return skill3;
+    }
+
+    public void setSkill3(StringFilter skill3) {
+        this.skill3 = skill3;
     }
 
     public LongFilter getPrix() {
@@ -187,6 +217,9 @@ public class ExpertCriteria implements Serializable {
             Objects.equals(adresse, that.adresse) &&
             Objects.equals(domaine, that.domaine) &&
             Objects.equals(profession, that.profession) &&
+            Objects.equals(skill1, that.skill1) &&
+            Objects.equals(skill2, that.skill2) &&
+            Objects.equals(skill3, that.skill3) &&
             Objects.equals(prix, that.prix) &&
             Objects.equals(note, that.note) &&
             Objects.equals(numRib, that.numRib) &&
@@ -206,6 +239,9 @@ public class ExpertCriteria implements Serializable {
         adresse,
         domaine,
         profession,
+        skill1,
+        skill2,
+        skill3,
         prix,
         note,
         numRib,
@@ -226,6 +262,9 @@ public class ExpertCriteria implements Serializable {
                 (adresse != null ? "adresse=" + adresse + ", " : "") +
                 (domaine != null ? "domaine=" + domaine + ", " : "") +
                 (profession != null ? "profession=" + profession + ", " : "") +
+                (skill1 != null ? "skill1=" + skill1 + ", " : "") +
+                (skill2 != null ? "skill2=" + skill2 + ", " : "") +
+                (skill3 != null ? "skill3=" + skill3 + ", " : "") +
                 (prix != null ? "prix=" + prix + ", " : "") +
                 (note != null ? "note=" + note + ", " : "") +
                 (numRib != null ? "numRib=" + numRib + ", " : "") +

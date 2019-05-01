@@ -40,7 +40,7 @@
     "entityTableName": "rendez_vous",
     "dto": "no",
     "pagination": "pagination",
-    "service": "no",
+    "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "clientRootFolder": "",

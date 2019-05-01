@@ -86,6 +86,27 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_skill1">Skill 1</label>
+                    <input type="text" class="form-control" name="skill1" id="field_skill1"
+                        [(ngModel)]="expert.skill1" required/>
+                    <div [hidden]="!(editForm.controls.skill1?.dirty && editForm.controls.skill1?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.skill1?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_skill2">Skill 2</label>
+                    <input type="text" class="form-control" name="skill2" id="field_skill2"
+                        [(ngModel)]="expert.skill2" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_skill3">Skill 3</label>
+                    <input type="text" class="form-control" name="skill3" id="field_skill3"
+                        [(ngModel)]="expert.skill3" />
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_prix">Prix</label>
                     <input type="number" class="form-control" name="prix" id="field_prix"
                         [(ngModel)]="expert.prix" required/>

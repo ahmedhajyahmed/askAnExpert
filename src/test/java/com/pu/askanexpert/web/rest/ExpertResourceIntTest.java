@@ -72,6 +72,15 @@ public class ExpertResourceIntTest {
     private static final String DEFAULT_PROFESSION = "AAAAAAAAAA";
     private static final String UPDATED_PROFESSION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SKILL_1 = "AAAAAAAAAA";
+    private static final String UPDATED_SKILL_1 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SKILL_2 = "AAAAAAAAAA";
+    private static final String UPDATED_SKILL_2 = "BBBBBBBBBB";
+
+    private static final String DEFAULT_SKILL_3 = "AAAAAAAAAA";
+    private static final String UPDATED_SKILL_3 = "BBBBBBBBBB";
+
     private static final Long DEFAULT_PRIX = 1L;
     private static final Long UPDATED_PRIX = 2L;
 
@@ -141,6 +150,9 @@ public class ExpertResourceIntTest {
             .description(DEFAULT_DESCRIPTION)
             .domaine(DEFAULT_DOMAINE)
             .profession(DEFAULT_PROFESSION)
+            .skill1(DEFAULT_SKILL_1)
+            .skill2(DEFAULT_SKILL_2)
+            .skill3(DEFAULT_SKILL_3)
             .prix(DEFAULT_PRIX)
             .note(DEFAULT_NOTE)
             .photo(DEFAULT_PHOTO)
@@ -176,6 +188,9 @@ public class ExpertResourceIntTest {
         assertThat(testExpert.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testExpert.getDomaine()).isEqualTo(DEFAULT_DOMAINE);
         assertThat(testExpert.getProfession()).isEqualTo(DEFAULT_PROFESSION);
+        assertThat(testExpert.getSkill1()).isEqualTo(DEFAULT_SKILL_1);
+        assertThat(testExpert.getSkill2()).isEqualTo(DEFAULT_SKILL_2);
+        assertThat(testExpert.getSkill3()).isEqualTo(DEFAULT_SKILL_3);
         assertThat(testExpert.getPrix()).isEqualTo(DEFAULT_PRIX);
         assertThat(testExpert.getNote()).isEqualTo(DEFAULT_NOTE);
         assertThat(testExpert.getPhoto()).isEqualTo(DEFAULT_PHOTO);
@@ -294,6 +309,24 @@ public class ExpertResourceIntTest {
 
     @Test
     @Transactional
+    public void checkSkill1IsRequired() throws Exception {
+        int databaseSizeBeforeTest = expertRepository.findAll().size();
+        // set the field null
+        expert.setSkill1(null);
+
+        // Create the Expert, which fails.
+
+        restExpertMockMvc.perform(post("/api/experts")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(expert)))
+            .andExpect(status().isBadRequest());
+
+        List<Expert> expertList = expertRepository.findAll();
+        assertThat(expertList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void checkPrixIsRequired() throws Exception {
         int databaseSizeBeforeTest = expertRepository.findAll().size();
         // set the field null
@@ -346,6 +379,9 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].domaine").value(hasItem(DEFAULT_DOMAINE.toString())))
             .andExpect(jsonPath("$.[*].profession").value(hasItem(DEFAULT_PROFESSION.toString())))
+            .andExpect(jsonPath("$.[*].skill1").value(hasItem(DEFAULT_SKILL_1.toString())))
+            .andExpect(jsonPath("$.[*].skill2").value(hasItem(DEFAULT_SKILL_2.toString())))
+            .andExpect(jsonPath("$.[*].skill3").value(hasItem(DEFAULT_SKILL_3.toString())))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
@@ -371,6 +407,9 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.domaine").value(DEFAULT_DOMAINE.toString()))
             .andExpect(jsonPath("$.profession").value(DEFAULT_PROFESSION.toString()))
+            .andExpect(jsonPath("$.skill1").value(DEFAULT_SKILL_1.toString()))
+            .andExpect(jsonPath("$.skill2").value(DEFAULT_SKILL_2.toString()))
+            .andExpect(jsonPath("$.skill3").value(DEFAULT_SKILL_3.toString()))
             .andExpect(jsonPath("$.prix").value(DEFAULT_PRIX.intValue()))
             .andExpect(jsonPath("$.note").value(DEFAULT_NOTE))
             .andExpect(jsonPath("$.photoContentType").value(DEFAULT_PHOTO_CONTENT_TYPE))
@@ -637,6 +676,123 @@ public class ExpertResourceIntTest {
 
         // Get all the expertList where profession is null
         defaultExpertShouldNotBeFound("profession.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill1IsEqualToSomething() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill1 equals to DEFAULT_SKILL_1
+        defaultExpertShouldBeFound("skill1.equals=" + DEFAULT_SKILL_1);
+
+        // Get all the expertList where skill1 equals to UPDATED_SKILL_1
+        defaultExpertShouldNotBeFound("skill1.equals=" + UPDATED_SKILL_1);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill1IsInShouldWork() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill1 in DEFAULT_SKILL_1 or UPDATED_SKILL_1
+        defaultExpertShouldBeFound("skill1.in=" + DEFAULT_SKILL_1 + "," + UPDATED_SKILL_1);
+
+        // Get all the expertList where skill1 equals to UPDATED_SKILL_1
+        defaultExpertShouldNotBeFound("skill1.in=" + UPDATED_SKILL_1);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill1IsNullOrNotNull() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill1 is not null
+        defaultExpertShouldBeFound("skill1.specified=true");
+
+        // Get all the expertList where skill1 is null
+        defaultExpertShouldNotBeFound("skill1.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill2IsEqualToSomething() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill2 equals to DEFAULT_SKILL_2
+        defaultExpertShouldBeFound("skill2.equals=" + DEFAULT_SKILL_2);
+
+        // Get all the expertList where skill2 equals to UPDATED_SKILL_2
+        defaultExpertShouldNotBeFound("skill2.equals=" + UPDATED_SKILL_2);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill2IsInShouldWork() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill2 in DEFAULT_SKILL_2 or UPDATED_SKILL_2
+        defaultExpertShouldBeFound("skill2.in=" + DEFAULT_SKILL_2 + "," + UPDATED_SKILL_2);
+
+        // Get all the expertList where skill2 equals to UPDATED_SKILL_2
+        defaultExpertShouldNotBeFound("skill2.in=" + UPDATED_SKILL_2);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill2IsNullOrNotNull() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill2 is not null
+        defaultExpertShouldBeFound("skill2.specified=true");
+
+        // Get all the expertList where skill2 is null
+        defaultExpertShouldNotBeFound("skill2.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill3IsEqualToSomething() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill3 equals to DEFAULT_SKILL_3
+        defaultExpertShouldBeFound("skill3.equals=" + DEFAULT_SKILL_3);
+
+        // Get all the expertList where skill3 equals to UPDATED_SKILL_3
+        defaultExpertShouldNotBeFound("skill3.equals=" + UPDATED_SKILL_3);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill3IsInShouldWork() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill3 in DEFAULT_SKILL_3 or UPDATED_SKILL_3
+        defaultExpertShouldBeFound("skill3.in=" + DEFAULT_SKILL_3 + "," + UPDATED_SKILL_3);
+
+        // Get all the expertList where skill3 equals to UPDATED_SKILL_3
+        defaultExpertShouldNotBeFound("skill3.in=" + UPDATED_SKILL_3);
+    }
+
+    @Test
+    @Transactional
+    public void getAllExpertsBySkill3IsNullOrNotNull() throws Exception {
+        // Initialize the database
+        expertRepository.saveAndFlush(expert);
+
+        // Get all the expertList where skill3 is not null
+        defaultExpertShouldBeFound("skill3.specified=true");
+
+        // Get all the expertList where skill3 is null
+        defaultExpertShouldNotBeFound("skill3.specified=false");
     }
 
     @Test
@@ -927,6 +1083,9 @@ public class ExpertResourceIntTest {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].domaine").value(hasItem(DEFAULT_DOMAINE.toString())))
             .andExpect(jsonPath("$.[*].profession").value(hasItem(DEFAULT_PROFESSION)))
+            .andExpect(jsonPath("$.[*].skill1").value(hasItem(DEFAULT_SKILL_1)))
+            .andExpect(jsonPath("$.[*].skill2").value(hasItem(DEFAULT_SKILL_2)))
+            .andExpect(jsonPath("$.[*].skill3").value(hasItem(DEFAULT_SKILL_3)))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
             .andExpect(jsonPath("$.[*].note").value(hasItem(DEFAULT_NOTE)))
             .andExpect(jsonPath("$.[*].photoContentType").value(hasItem(DEFAULT_PHOTO_CONTENT_TYPE)))
@@ -986,6 +1145,9 @@ public class ExpertResourceIntTest {
             .description(UPDATED_DESCRIPTION)
             .domaine(UPDATED_DOMAINE)
             .profession(UPDATED_PROFESSION)
+            .skill1(UPDATED_SKILL_1)
+            .skill2(UPDATED_SKILL_2)
+            .skill3(UPDATED_SKILL_3)
             .prix(UPDATED_PRIX)
             .note(UPDATED_NOTE)
             .photo(UPDATED_PHOTO)
@@ -1008,6 +1170,9 @@ public class ExpertResourceIntTest {
         assertThat(testExpert.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testExpert.getDomaine()).isEqualTo(UPDATED_DOMAINE);
         assertThat(testExpert.getProfession()).isEqualTo(UPDATED_PROFESSION);
+        assertThat(testExpert.getSkill1()).isEqualTo(UPDATED_SKILL_1);
+        assertThat(testExpert.getSkill2()).isEqualTo(UPDATED_SKILL_2);
+        assertThat(testExpert.getSkill3()).isEqualTo(UPDATED_SKILL_3);
         assertThat(testExpert.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testExpert.getNote()).isEqualTo(UPDATED_NOTE);
         assertThat(testExpert.getPhoto()).isEqualTo(UPDATED_PHOTO);

@@ -59,6 +59,16 @@ public class Expert implements Serializable {
     private String profession;
 
     @NotNull
+    @Column(name = "skill_1", nullable = false)
+    private String skill1;
+
+    @Column(name = "skill_2")
+    private String skill2;
+
+    @Column(name = "skill_3")
+    private String skill3;
+
+    @NotNull
     @Column(name = "prix", nullable = false)
     private Long prix;
 
@@ -89,6 +99,9 @@ public class Expert implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<RendezVous> rendezVous = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    @OneToOne(mappedBy = "expert")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private User user = new User();
     public Long getId() {
         return id;
     }
@@ -186,6 +199,45 @@ public class Expert implements Serializable {
 
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+
+    public String getSkill1() {
+        return skill1;
+    }
+
+    public Expert skill1(String skill1) {
+        this.skill1 = skill1;
+        return this;
+    }
+
+    public void setSkill1(String skill1) {
+        this.skill1 = skill1;
+    }
+
+    public String getSkill2() {
+        return skill2;
+    }
+
+    public Expert skill2(String skill2) {
+        this.skill2 = skill2;
+        return this;
+    }
+
+    public void setSkill2(String skill2) {
+        this.skill2 = skill2;
+    }
+
+    public String getSkill3() {
+        return skill3;
+    }
+
+    public Expert skill3(String skill3) {
+        this.skill3 = skill3;
+        return this;
+    }
+
+    public void setSkill3(String skill3) {
+        this.skill3 = skill3;
     }
 
     public Long getPrix() {
@@ -352,6 +404,19 @@ public class Expert implements Serializable {
     public void setRendezVous(Set<RendezVous> rendezVous) {
         this.rendezVous = rendezVous;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Expert User(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -385,6 +450,9 @@ public class Expert implements Serializable {
             ", description='" + getDescription() + "'" +
             ", domaine='" + getDomaine() + "'" +
             ", profession='" + getProfession() + "'" +
+            ", skill1='" + getSkill1() + "'" +
+            ", skill2='" + getSkill2() + "'" +
+            ", skill3='" + getSkill3() + "'" +
             ", prix=" + getPrix() +
             ", note=" + getNote() +
             ", photo='" + getPhoto() + "'" +

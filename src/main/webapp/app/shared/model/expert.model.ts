@@ -22,6 +22,9 @@ export interface IExpert {
     description?: any;
     domaine?: Domaine;
     profession?: string;
+    skill1?: string;
+    skill2?: string;
+    skill3?: string;
     prix?: number;
     note?: number;
     photoContentType?: string;
@@ -43,6 +46,9 @@ export class Expert implements IExpert {
         public description?: any,
         public domaine?: Domaine,
         public profession?: string,
+        public skill1?: string,
+        public skill2?: string,
+        public skill3?: string,
         public prix?: number,
         public note?: number,
         public photoContentType?: string,

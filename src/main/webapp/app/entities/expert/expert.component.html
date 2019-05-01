@@ -1,52 +1,40 @@
 <div>
     <h2 id="page-heading">
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-expert"
-            [routerLink]="['/expert/new']">
+        <span>Experts</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-expert" [routerLink]="['/expert/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span>
-                Create new Expert
+            <span >
+            Create new Expert
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <br />
-    <!--<div class="table-responsive" *ngIf="experts">
+    <br/>
+    <div class="table-responsive" *ngIf="experts">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="nom"><span>Nom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-
             <th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dateNaissance"><span>Date Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="adresse"><span>Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="domaine"><span>Domaine</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="profession"><span>Profession</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="skill1"><span>Skill 1</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="skill2"><span>Skill 2</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="skill3"><span>Skill 3</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="prix"><span>Prix</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="note"><span>Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="photo"><span>Photo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="numRib"><span>Num Rib</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
-
-            <th jhiSortBy="prenom"><span>Prenom</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-    <!--<th jhiSortBy="dateNaissance"><span>Date Naissance</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-    <!--<th jhiSortBy="adresse"><span>Adresse</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-    <!--<th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="domaine"><span>Domaine</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="profession"><span>Profession</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-    <!--<th jhiSortBy="prix"><span>Prix</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="note"><span>Note</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="photo"><span>Photo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="numRib"><span>Num Rib</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
-    <!--<th></th>
-
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let expert of experts ;trackBy: trackId">
                 <td><a [routerLink]="['/expert', expert.id, 'view' ]">{{expert.id}}</a></td>
-
                 <td>{{expert.nom}}</td>
                 <td>{{expert.prenom}}</td>
                 <td>{{expert.dateNaissance | date:'mediumDate'}}</td>
@@ -54,16 +42,10 @@
                 <td>{{expert.description}}</td>
                 <td>{{expert.domaine}}</td>
                 <td>{{expert.profession}}</td>
+                <td>{{expert.skill1}}</td>
+                <td>{{expert.skill2}}</td>
+                <td>{{expert.skill3}}</td>
                 <td>{{expert.prix}}</td>
-
-                <td>{{expert.nom}}&nbsp;{{expert.prenom}}</td>
-                <td>{{expert.dateNaissance | date:'mediumDate'}}</td>-->
-    <!--<td>{{expert.adresse}}</td>-->
-    <!--<td>{{expert.description}}</td>
-                <td>{{expert.domaine}}</td>
-                <td>{{expert.profession}}</td>-->
-    <!--<td>{{expert.prix}}</td>
-
                 <td>{{expert.note}}</td>
                 <td>
                     <a *ngIf="expert.photo" (click)="openFile(expert.photoContentType, expert.photo)">
@@ -71,13 +53,8 @@
                     </a>
                     <span *ngIf="expert.photo">{{expert.photoContentType}}, {{byteSize(expert.photo)}}</span>
                 </td>
-
                 <td>{{expert.numRib}}</td>
                 <td class="text-right">
-
-                <td>{{expert.numRib}}</td>-->
-    <!--<td class="text-right">
-
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/expert', expert.id, 'view' ]"
@@ -106,9 +83,7 @@
         </table>
     </div>
     <div *ngIf="experts && experts.length">
-        
-        
-<div class="row justify-content-center">
+        <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
@@ -116,85 +91,3 @@
         </div>
     </div>
 </div>
--->
-<section class="team">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <div class="col-lg-12">
-                <h6 class="description">NOS EXPERTS</h6>
-                <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile"*ngFor="let expert of experts ;trackBy: trackId">
-                    <div class="img-box" *ngIf="expert.photo">
-                      <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo"
-                      alt="expert image" class="img-responsive"></div>
-                      <div class="btn-group flex-btn-group-container">
-                            <button type="submit"
-                                    [routerLink]="['/expert', expert.id, 'view' ]"
-                                    class="btn btn-info btn-sm">
-                                <fa-icon [icon]="'eye'"></fa-icon>
-                            </button>
-                            <button type="submit"
-                                    [routerLink]="['/expert', expert.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            </button>
-                            <button type="submit"
-                                    [routerLink]="['/', 'expert', { outlets: { popup: expert.id + '/delete'} }]"
-                                    replaceUrl="true"
-                                    queryParamsHandling="merge"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
-                        </div>
-                    
-                    <h1>{{expert.nom}}&nbsp;{{expert.prenom}}</h1>
-                    <h2>{{expert.domaine}} {{expert.profession}}</h2>
-                    <p>{{expert.description}}</p>
-                  </div>
-                 <!-- <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                    <div class="img-box">
-                      <img src="http://nabeel.co.in/files/bootsnipp/team/2.jpg" class="img-responsive">
-                      <ul class="text-center">
-                        <a href="#"><li><i class="fa fa-facebook"></i></li></a>
-                        <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                        <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                      </ul>
-                    </div>
-                    <h1>Christopher Di</h1>
-                    <h2>Co-founder/ Projects</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                    <div class="img-box">
-                      <img src="http://nabeel.co.in/files/bootsnipp/team/3.jpg" class="img-responsive">
-                      <ul class="text-center">
-                        <a href="#"><li><i class="fa fa-facebook"></i></li></a>
-                        <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                        <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                      </ul>
-                    </div>
-                    <h1>Heather H</h1>
-                    <h2>Co-founder/ Marketing</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                    <div class="img-box">
-                      <img src="http://nabeel.co.in/files/bootsnipp/team/4.jpg" class="img-responsive">
-                      <ul class="text-center">
-                        <a href="#"><li><i class="fa fa-facebook"></i></li></a>
-                        <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                        <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                      </ul>
-                    </div>
-                    <h1>John Doe</h1>
-                    <h2>Designer</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </div>
-                </div>-->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>

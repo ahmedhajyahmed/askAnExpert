@@ -8,6 +8,9 @@ entity Expert {
   description TextBlob,
   domaine Domaine required,
   profession String required,
+  skill1 String required,
+  skill2 String,
+  skill3 String,
   prix Long required,
   note Integer,
   photo ImageBlob,
@@ -57,4 +60,4 @@ relationship OneToMany {
 paginate HistoriqueChat with pagination
 paginate HistoriqueAppel with pagination
 paginate RendezVous with pagination
-service NonDisponibilite, HistoriqueAppel, HistoriqueChat with serviceImpl
+service RendezVous, NonDisponibilite, HistoriqueAppel, HistoriqueChat with serviceImpl

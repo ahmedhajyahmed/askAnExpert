@@ -50,6 +50,18 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="skill_1" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="skill_2" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="skill_3" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="prix" type="bigint">
                 <constraints nullable="false" />
             </column>
