@@ -1,4 +1,4 @@
-<div class="row justify-content-center">
+<!--<div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="expert">
             <h2><span>Expert</span> {{expert.id}}</h2>
@@ -67,6 +67,68 @@
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
+        </div>
+    </div>
+</div>-->
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div class="well profile" style="width:175%">
+            <div class="col-sm-12">
+                <div class="row">
+                <div class="col-xs-12 col-sm-8" style="margin-top:70px;">
+                    <div *ngIf="expert">
+                        <h2 style="margin-left:70px">{{expert.nom}} {{expert.prenom}}</h2>
+                    </div>
+                    <p style="margin-left:70px"><strong>About: </strong> {{expert.description}}</p>
+                    <p style="margin-left:70px"><strong>Domaine & Profession: </strong> {{expert.domaine}} {{expert.profession}}</p>
+                    <p style="margin-left:70px"><strong>Skills: </strong>
+                        <span class="tags">html5</span>
+                        <span class="tags">css3</span>
+                        <span class="tags">jquery</span>
+                        <span class="tags">bootstrap3</span>
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <div *ngIf="expert.photo">
+                            <a (click)="openFile(expert.photoContentType, expert.photo)">
+                                <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo"
+                                    alt="expert image" style="width: 120%;" class="img-circle img-responsive">   
+                    </figure>
+                    <ngb-rating [(rate)]="currentRate">
+                            <ng-template let-fill="fill" let-index="index">
+                              <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+                            </ng-template>
+                          </ngb-rating>
+                          <hr>
+                          <pre>Rate: <b>{{currentRate}}</b></pre>
+                </div>
+            </div>
+            </div>
+            <div class="col-xs-12 divider text-center">
+                <div class="row">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <p style="margin-bottom: 0;"><small>né le</small></p>
+                    <h2 style="margin-bottom: 1rem;margin-top: 1rem;"><strong> {{expert.dateNaissance | date:'mediumDate'}} </strong></h2>
+                    <button type="submit" (click)="previousState()" class="btn btn-info">
+                        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Retour</span>
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                        <p style="margin-bottom: 0;"><small>note</small></p>
+                    <h2 style="margin-bottom: 1rem;margin-top: 1rem;"><strong>{{expert.note}}</strong></h2>
+                    <button (click)="methode($event)" type="button" class="btn btn-primary">
+                        <fa-icon [icon]="'star'"></fa-icon>&nbsp;<span> Noter</span>
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <p style="margin-bottom: 0;"><small>prix</small></p>
+                    <h2 style="margin-bottom: 1rem;margin-top: 1rem;"><strong>{{expert.prix}}</strong></h2>
+                    <button type="button" [routerLink]="['/expert', expert.id, 'edit']" class="btn btn-primary">
+                        <fa-icon [icon]="'calendar'"></fa-icon>&nbsp;<span> Rendez-vous</span>
+                    </button>
+                </div>
+            </div></div>
         </div>
     </div>
 </div>

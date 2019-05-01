@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-
+import { sliderService } from './slider.service';
+import { MethodCall } from '@angular/compiler';
 @Component({
     selector: 'jhi-slider',
     templateUrl: './slider.component.html',
     styleUrls: ['slider.component.css']
 })
 export class SliderComponent implements OnInit {
-    items: Array<any> = [];
-    constructor() {
-        this.items = [
-            { name: 'https://i.pinimg.com/originals/87/22/19/872219e39469e56ff5742581122212bf.jpg' },
-            { name: 'https://wallpapertag.com/wallpaper/full/e/4/b/103031-1080-wallpaper-1920x1080-for-xiaomi.jpg' },
-            { name: 'https://wallpapercave.com/wp/GoYcMqd.jpg' },
-            { name: 'https://i.pinimg.com/originals/87/22/19/872219e39469e56ff5742581122212bf.jpg' },
-            { name: 'https://wallpapertag.com/wallpaper/full/e/4/b/103031-1080-wallpaper-1920x1080-for-xiaomi.jpg' },
-            { name: 'https://wallpapercave.com/wp/GoYcMqd.jpg' }
-        ];
-    }
+    experts: any[] = [];
+    constructor(private svc: sliderService) {}
 
-    ngOnInit() {}
+    method(): void {
+        this.svc.getData().subscribe(data => {
+            this.experts = data;
+        });
+    }
+    ngOnInit() {
+        this.method();
+    }
 }

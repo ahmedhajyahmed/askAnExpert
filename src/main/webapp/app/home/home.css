@@ -1,3 +1,28 @@
+.bg-light {
+    background: #ccc;
+}
+.mb-5,
+.my-5 {
+    margin-bottom: 3rem !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.section-title {
+    color: #3a4971;
+    font-size: 40px;
+    font-weight: 900;
+}
+.unit-4 .unit-4-icon span {
+    font-size: 3rem;
+}
+.unit-4 h3 {
+    font-size: 20px;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
 .card-img-top {
     height: 450px;
 }
