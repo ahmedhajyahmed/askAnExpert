@@ -99,9 +99,6 @@ public class Expert implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<RendezVous> rendezVous = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
-    @OneToOne(mappedBy = "expert")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private User user = new User();
     public Long getId() {
         return id;
     }
@@ -405,18 +402,6 @@ public class Expert implements Serializable {
         this.rendezVous = rendezVous;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public Expert User(User user) {
-        this.user = user;
-        return this;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
