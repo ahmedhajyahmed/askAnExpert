@@ -1,4 +1,5 @@
-<div id="container">
+<div class="row"><button type="submit" (click)="method()">slider</button>
+<div class="row"></div><div id="container">
     <div ng2-carouselamos class="slides-wrapper"
          [items]="items"
          [width]="900"
@@ -6,7 +7,6 @@
          [$next]="next"
          [$item]="item">
     </div>
-
     <ng-template #prev>
         <img src="../../../content/images/iconfinder_icon-ios7-arrow-left_211689.png" id="left">
     </ng-template>
@@ -15,9 +15,12 @@
         <img src="../../..//content/images/iconfinder_icon-ios7-arrow-right_211607.png" id="right">
     </ng-template>
 
-    <ng-template #item let-item let-i="index" >
-        <div class="items">
-            <img src="{{item.name }}">
+    <ng-template *ngFor="let expert of experts">
+        <div class="items" >
+                <div class="img-box" *ngIf="expert.photo">
+                        <img [src]="'data:' + expert.photoContentType + ';base64,' + expert.photo"
+                        alt="expert image" class="img-responsive"></div>
         </div>
     </ng-template>
+</div>
 </div>
