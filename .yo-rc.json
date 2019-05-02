@@ -12,7 +12,7 @@
         "authenticationType": "jwt",
         "cacheProvider": "ehcache",
         "enableHibernateCache": true,
-        "websocket": "spring-websocket",
+        "websocket": false,
         "databaseType": "sql",
         "devDatabaseType": "mysql",
         "prodDatabaseType": "mysql",

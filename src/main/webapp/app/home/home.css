@@ -1,23 +1,123 @@
-/* ==========================================================================
-Main page styles
-========================================================================== */
-
-.hipster {
-    display: inline-block;
-    width: 347px;
-    height: 497px;
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
+.bg-light {
+    background: #ccc;
 }
-
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (-moz-min-device-pixel-ratio: 2),
-    only screen and (-o-min-device-pixel-ratio: 2/1),
-    only screen and (min-resolution: 192dpi),
-    only screen and (min-resolution: 2dppx) {
-    .hipster {
-        background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-        background-size: contain;
-    }
+.mb-5,
+.my-5 {
+    margin-bottom: 3rem !important;
+}
+.text-center {
+    text-align: center !important;
+}
+.section-title {
+    color: #3a4971;
+    font-size: 40px;
+    font-weight: 900;
+}
+.unit-4 .unit-4-icon span {
+    font-size: 3rem;
+}
+.unit-4 h3 {
+    font-size: 20px;
+}
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+.card-img-top {
+    height: 450px;
+}
+.view-steps {
+    padding: 0 !important;
+    margin: 60px 0 0 0;
+}
+.container {
+    max-width: 100%;
+    margin-top: 40px;
+}
+.txt-section-header {
+    width: 75%;
+    margin: auto;
+    color: #000000;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: -webkit-center;
+}
+.steps {
+    margin-top: 60px;
+    display: flex;
+}
+.steps-section-image {
+    margin: 0 50px 0 50px;
+    max-height: 360px;
+    padding: 0 !important;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+.steps-content {
+    width: 80%;
+    display: flex;
+    padding: 0 !important;
+}
+.expsection {
+    background: #f6f6f6;
+    height: 85%;
+    padding: 0 !important;
+    text-align: center;
+    margin: 0 10px;
+    flex: 0 0 23% !important;
+    max-width: 23% !important;
+}
+.expsec_img {
+    height: 85px;
+    width: 85px;
+    margin: 50px 0;
+}
+expsec_title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    padding: 0 15px !important;
+    line-height: 30px;
+}
+.expsec_subtitle {
+    min-height: 44px;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+    color: #757575;
+    text-align: center;
+    font-weight: 500;
+    padding: 0 15px !important;
+}
+.expsec_bottitle {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 25px;
+    text-align: center;
+    color: #fff;
+    background: red;
+    padding: 10px 15px 15px 15px;
+    margin-bottom: 0;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.txt-meet-experts {
+    color: #000000;
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.txt-sub {
+    text-align: center;
+    width: 75%;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 25px;
+    margin: 0 auto;
+    color: #757575;
 }

@@ -38,6 +38,16 @@ public class CacheConfiguration {
             cm.createCache(com.pu.askanexpert.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.pu.askanexpert.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.pu.askanexpert.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Expert.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Expert.class.getName() + ".disponibilites", jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Expert.class.getName() + ".historiqueAppels", jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Expert.class.getName() + ".historiqueChats", jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Disponibilite.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.HistoriqueAppel.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.HistoriqueChat.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.Expert.class.getName() + ".rendezVous", jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.NonDisponibilite.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pu.askanexpert.domain.RendezVous.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
