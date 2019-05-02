@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { CalendarService } from 'app/calendar/calendar.service';
-import { Calendar } from '@fullcalendar/core';
 import { IRendezVous, RendezVous } from 'app/shared/model/rendez-vous.model';
-import { Moment } from 'moment';
 import * as moment from 'moment';
-import { Expert, IExpert } from 'app/shared/model/expert.model';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-calendar',
@@ -16,7 +13,7 @@ import { HttpResponse } from '@angular/common/http';
     styleUrls: ['calendar.css']
 })
 export class CalendarComponent implements OnInit {
-    calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin];
+    calendarPlugins = [dayGridPlugin, timeGridPlugin, listPlugin, bootstrapPlugin];
     calendarEvents: any[] = [];
     rendezVous: IRendezVous;
     expert: any;
@@ -33,35 +30,17 @@ export class CalendarComponent implements OnInit {
         info.el.style.borderColor = 'red';
         info.jsEvent.preventDefault();
     }
-    /*handelLoading(arg) {
-        document.addEventListener('DOMContentLoaded', function() {
-            const calendarEl = document.getElementById('calendar');
-
-            const calendar = new Calendar(calendarEl, {
-                header: { center: 'dayGridMonth,timeGridWeek' }, // buttons for switching between views
-
-                views: {
-                    dayGridMonth: { // name of view
-                        titleFormat: 'YYYY, MM, DD'
-                        // other view-specific options here
-                    }
-                }
-            });
-
-            calendar.render();
-        });
-    }*/
 
     putData(arg) {
         const title = (<HTMLInputElement>document.getElementById('title')).value;
         const date = (<HTMLInputElement>document.getElementById('date')).value;
-        //alert(title+ date);
+        // alert(title+ date);
         this.rendezVous = new RendezVous();
         this.rendezVous.title = title;
         this.rendezVous.start = moment(date);
         this.svc.getExpert().subscribe(expert => (this.expert = expert));
         this.rendezVous.expert = this.expert;
-        alert(this.rendezVous.expert.id);
+        // alert(this.rendezVous.expert.id);
         this.svc.postData(this.rendezVous).subscribe();
         window.location.reload();
     }
