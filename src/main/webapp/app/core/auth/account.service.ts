@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
+import { JhiTrackerService } from '../tracker/tracker.service';
 
 @Injectable({ providedIn: 'root' })
 export class AccountService {
@@ -11,7 +12,7 @@ export class AccountService {
     private authenticated = false;
     private authenticationState = new Subject<any>();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private trackerService: JhiTrackerService) {}
 
     fetch(): Observable<HttpResponse<Account>> {
         return this.http.get<Account>(SERVER_API_URL + 'api/account', { observe: 'response' });
@@ -75,6 +76,7 @@ export class AccountService {
                 if (account) {
                     this.userIdentity = account;
                     this.authenticated = true;
+                    this.trackerService.connect();
                 } else {
                     this.userIdentity = null;
                     this.authenticated = false;
@@ -83,6 +85,9 @@ export class AccountService {
                 return this.userIdentity;
             })
             .catch(err => {
+                if (this.trackerService.stompClient && this.trackerService.stompClient.connected) {
+                    this.trackerService.disconnect();
+                }
                 this.userIdentity = null;
                 this.authenticated = false;
                 this.authenticationState.next(this.userIdentity);

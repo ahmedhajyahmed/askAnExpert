@@ -1,9 +1,10 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { SERVER_API_URL } from 'app/app.constants';
-import { AccountService } from 'app/core';
+import { AccountService, JhiTrackerService } from 'app/core';
 import { JhiDateUtils } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
+import { MockTrackerService } from '../../../helpers/mock-tracker.service';
 
 describe('Service Tests', () => {
     describe('Account Service', () => {
@@ -13,7 +14,14 @@ describe('Service Tests', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule],
-                providers: [JhiDateUtils, SessionStorageService]
+                providers: [
+                    JhiDateUtils,
+                    SessionStorageService,
+                    {
+                        provide: JhiTrackerService,
+                        useClass: MockTrackerService
+                    }
+                ]
             });
 
             service = TestBed.get(AccountService);

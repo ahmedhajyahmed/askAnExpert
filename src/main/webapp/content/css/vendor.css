@@ -1,10 +1,2 @@
 /* after changing this file run 'npm run webpack:build' */
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~bootstrap/dist/css/bootstrap.css';
-@import '~bootstrap/dist/css/bootstrap-grid.css';
-@import '~bootstrap/dist/css/bootstrap-reboot.css';
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@import '~@fullcalendar/timegrid/main.css';
-@import '~@fullcalendar/list/main.css';
-@import '~@fortawesome/fontawesome-svg-core/styles.css';

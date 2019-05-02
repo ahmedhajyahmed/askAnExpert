@@ -20,11 +20,6 @@ import { AskAnExpertEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
-import { CalendarComponent } from './calendar/calendar.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
-import { HttpClientModule } from '@angular/common/http';
-import { Ng2CarouselamosModule } from 'ng2-carouselamos';
-// import { NoteComponent } from './entities/expert/note.component';
 
 @NgModule({
     imports: [
@@ -41,24 +36,9 @@ import { Ng2CarouselamosModule } from 'ng2-carouselamos';
         AskAnExpertAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         AskAnExpertEntityModule,
-        AskAnExpertAppRoutingModule,
-        FullCalendarModule,
-        HttpClientModule,
-        Ng2CarouselamosModule
-        /* RouterModule.forRoot(
-            appRoutes,
-            { enableTracing: true } // <-- debugging purposes only
-        )*/
+        AskAnExpertAppRoutingModule
     ],
-    declarations: [
-        JhiMainComponent,
-        NavbarComponent,
-        ErrorComponent,
-        PageRibbonComponent,
-        FooterComponent,
-        CalendarComponent
-        // NoteComponent
-    ],
+    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
