@@ -12,7 +12,7 @@ import { ExpertDetailComponent } from './expert-detail.component';
 import { ExpertUpdateComponent } from './expert-update.component';
 import { ExpertDeletePopupComponent } from './expert-delete-dialog.component';
 import { IExpert } from 'app/shared/model/expert.model';
-
+import { AffichageAvanceComponent } from './affichage-avance.component';
 @Injectable({ providedIn: 'root' })
 export class ExpertResolve implements Resolve<IExpert> {
     constructor(private service: ExpertService) {}
@@ -33,6 +33,19 @@ export const expertRoute: Routes = [
     {
         path: '',
         component: ExpertComponent,
+        resolve: {
+            pagingParams: JhiResolvePagingParams
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            defaultSort: 'id,asc',
+            pageTitle: 'Experts'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
+        path: 'avance',
+        component: AffichageAvanceComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams
         },

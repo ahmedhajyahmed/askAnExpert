@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiDataUtils } from 'ng-jhipster';
 
-import { IExpert } from 'app/shared/model/expert.model';
-
+import { IExpert, Expert } from 'app/shared/model/expert.model';
+import { NoteServiceService } from './note-service.service';
+import { expertPopupRoute } from './expert.route';
+import { DOCUMENT } from '@angular/common';
+import { notEqual } from 'assert';
 @Component({
     selector: 'jhi-expert-detail',
-    templateUrl: './expert-detail.component.html'
+    templateUrl: './expert-detail.component.html',
+    styleUrls: ['expert-detail.css']
 })
 export class ExpertDetailComponent implements OnInit {
     expert: IExpert;
-
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+    currentRate = 6;
+    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, private svc: NoteServiceService) {}
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ expert }) => {
@@ -28,5 +32,9 @@ export class ExpertDetailComponent implements OnInit {
     }
     previousState() {
         window.history.back();
+    }
+    methode(): void {
+        this.expert.note = (this.expert.note + this.currentRate) / 2;
+        this.svc.putData(this.expert).subscribe();
     }
 }

@@ -2,21 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-
 import { IExpert } from 'app/shared/model/expert.model';
 import { AccountService } from 'app/core';
-
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ExpertService } from './expert.service';
 
 @Component({
-    selector: 'jhi-expert',
-    templateUrl: './expert.component.html',
-    styleUrls: ['expert.css']
+    selector: 'jhi-affichage-avance',
+    templateUrl: './affichage-avance.component.html',
+    styles: []
 })
-export class ExpertComponent implements OnInit, OnDestroy {
+export class AffichageAvanceComponent implements OnInit, OnDestroy {
     currentAccount: any;
     experts: IExpert[];
     error: any;

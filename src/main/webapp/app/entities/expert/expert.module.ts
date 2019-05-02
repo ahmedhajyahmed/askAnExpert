@@ -9,15 +9,29 @@ import {
     ExpertDeletePopupComponent,
     ExpertDeleteDialogComponent,
     expertRoute,
-    expertPopupRoute
+    expertPopupRoute,
+    AffichageAvanceComponent
 } from './';
 
 const ENTITY_STATES = [...expertRoute, ...expertPopupRoute];
 
 @NgModule({
     imports: [AskAnExpertSharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [ExpertComponent, ExpertDetailComponent, ExpertUpdateComponent, ExpertDeleteDialogComponent, ExpertDeletePopupComponent],
-    entryComponents: [ExpertComponent, ExpertUpdateComponent, ExpertDeleteDialogComponent, ExpertDeletePopupComponent],
+    declarations: [
+        ExpertComponent,
+        ExpertDetailComponent,
+        ExpertUpdateComponent,
+        AffichageAvanceComponent,
+        ExpertDeleteDialogComponent,
+        ExpertDeletePopupComponent
+    ],
+    entryComponents: [
+        ExpertComponent,
+        ExpertUpdateComponent,
+        ExpertDeleteDialogComponent,
+        AffichageAvanceComponent,
+        ExpertDeletePopupComponent
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AskAnExpertExpertModule {}
